@@ -1,0 +1,21 @@
+@charset "utf-8";
+@import "../fonts/raleway.css";
+
+$navbar-height: 2rem;
+@import "~bulmaswatch/litera/_variables";
+$bulmaswatch-import-font: false;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+$gap: 8px;
+
+@import "~bulma/bulma.sass";
+@import "~bulmaswatch/litera/_overrides";
+
+.window-dragger {
+    -webkit-app-region: drag;
+}
+
+html,
+body {
+    overflow: hidden;
+}

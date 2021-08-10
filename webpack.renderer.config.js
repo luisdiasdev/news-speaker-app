@@ -1,10 +1,16 @@
 const rules = require('./webpack.rules')
 const plugins = require('./webpack.plugins')
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const rendererRules = [
   {
-    test: /\.css$/,
-    use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+    test: /\.scss$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      { loader: 'css-loader' },
+      { loader: 'sass-loader', options: { sourceMap: true } }
+    ]
   },
   {
     test: /\.(ico|icns)$/,
@@ -26,12 +32,15 @@ const rendererRules = [
   }
 ]
 
+const rendererPlugins = [new MiniCssExtractPlugin()]
+
 module.exports = {
   module: {
     rules: rules.concat(rendererRules)
   },
-  plugins: plugins,
+  plugins: plugins.concat(rendererPlugins),
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
-  }
+  },
+  devtool: 'nosources-source-map'
 }

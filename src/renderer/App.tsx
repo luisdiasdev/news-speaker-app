@@ -1,7 +1,8 @@
 import React from 'react'
+import Main from './pages/Main'
 
 const App: React.FC = () => {
-  return <h1>Hello from React!</h1>
+  return <Main />
 }
 
 export default App
