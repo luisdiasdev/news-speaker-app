@@ -1,18 +1,11 @@
 import React from 'react'
-import {
-  Container,
-  CloseButton,
-  ContentSection,
-  TitleContainer
-} from './styles'
+import { Container, CloseButton, TitleContainer } from './styles'
 
 const TitleBar: React.FC = ({ children }) => {
   return (
     <Container>
-      <ContentSection>
-        <TitleContainer>{children}</TitleContainer>
-        <CloseButton>X</CloseButton>
-      </ContentSection>
+      <TitleContainer>{children}</TitleContainer>
+      <CloseButton>X</CloseButton>
     </Container>
   )
 }

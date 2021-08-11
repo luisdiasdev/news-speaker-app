@@ -18,8 +18,10 @@ export const CloseButton = styled.button`
 
 export const Container = styled.div`
   -webkit-app-region: drag;
+  display: flex;
   width: 100%;
-  position: fixed;
+  justify-content: space-between;
+  align-items: center;
   height: ${props => props.theme.titleBarHeight};
   padding: 10px;
   background-color: #ccc;
