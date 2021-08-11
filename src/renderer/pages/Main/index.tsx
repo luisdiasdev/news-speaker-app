@@ -1,8 +1,10 @@
 import React from 'react'
-import RSSFeedList from '../../components/RSSFeedList'
-import { RootContainer } from '../../components/RootContainer'
-import TitleBar from '../../components/TitleBar'
+
 import ContentPanel from '../../components/ContentPanel'
+import Player from '../../components/Player'
+import { RootContainer } from '../../components/RootContainer'
+import RSSFeedList from '../../components/RSSFeedList'
+import TitleBar from '../../components/TitleBar'
 
 const Main: React.FC = () => {
   return (
@@ -10,7 +12,7 @@ const Main: React.FC = () => {
       <TitleBar>
         <a href='#'>News Speaker</a>
       </TitleBar>
-      <ContentPanel leftPanel={<RSSFeedList />} rightPanel={<RSSFeedList />} />
+      <ContentPanel leftPanel={<RSSFeedList />} rightPanel={<Player />} />
     </RootContainer>
   )
 }

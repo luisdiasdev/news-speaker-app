@@ -12,7 +12,7 @@ export const LeftPanel = styled.div<PanelProps>`
   top: ${props => props.theme.titleBarHeight};
   left: ${props => (props.isOpen ? '0' : `-${props.panelWidth}`)};
   bottom: 0;
-  border-right: 1px solid #000;
+  border-right: 1px solid #ccc;
   transition: 0.3s;
   width: ${props => props.panelWidth};
 `

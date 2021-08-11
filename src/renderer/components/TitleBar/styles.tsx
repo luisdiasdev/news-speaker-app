@@ -24,5 +24,6 @@ export const Container = styled.div`
   align-items: center;
   height: ${props => props.theme.titleBarHeight};
   padding: 10px;
-  background-color: #ccc;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
 `

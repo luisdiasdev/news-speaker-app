@@ -36,7 +36,9 @@ module.exports = {
               name: 'main_window'
             }
           ]
-        }
+        },
+        port: 9998,
+        loggerPort: 9997
       }
     ],
     [

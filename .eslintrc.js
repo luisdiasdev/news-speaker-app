@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -16,7 +16,11 @@ module.exports = {
     node: true
   },
   rules: {
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'import/order': 'off',
+    'sort-imports': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   },
   overrides: [
     {

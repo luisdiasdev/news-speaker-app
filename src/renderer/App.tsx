@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
 import Main from './pages/Main'
 import { defaultTheme } from './theme'
 

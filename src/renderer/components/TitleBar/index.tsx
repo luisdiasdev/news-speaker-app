@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, CloseButton, TitleContainer } from './styles'
+
+import { CloseButton, Container, TitleContainer } from './styles'
 
 const TitleBar: React.FC = ({ children }) => {
   return (
