@@ -1,9 +1,24 @@
+const path = require('path')
 const rules = require('./webpack.rules')
 const plugins = require('./webpack.plugins')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const rendererRules = [
+  {
+    test: /\.tsx?$/,
+    exclude: /(node_modules|\.webpack)/,
+    use: {
+      loader: 'ts-loader',
+      options: {
+        transpileOnly: true,
+        getCustomTransformers: path.join(
+          __dirname,
+          './webpack.ts-transformers.js'
+        )
+      }
+    }
+  },
   {
     test: /\.scss$/,
     use: [
