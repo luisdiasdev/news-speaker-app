@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron'
+
 import { createWindow } from './window'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
