@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import { mainReducer } from './main'
+import { appReducer } from './app'
 import { configure as configureStore } from './store'
 
 export const rootReducer = combineReducers({
-  main: mainReducer
+  main: appReducer
 })
 
 export type State = ReturnType<typeof rootReducer>

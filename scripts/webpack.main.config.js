@@ -16,7 +16,7 @@ const mainRules = [
 
 module.exports = {
   entry: {
-    index: './src/backend/index.ts',
+    index: './src/backend/app.ts',
     preload: './src/backend/preload.ts'
   },
   output: {

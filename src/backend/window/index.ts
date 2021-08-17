@@ -3,8 +3,9 @@ import path from 'path'
 
 import constants from '../constants'
 import { isDevelopment } from '../helpers/is-dev'
+import { configureSessionPermissions } from './session'
 
-export function createWindow(): void {
+export function createWindow(): BrowserWindow {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: constants.WindowBounds.height,
@@ -32,4 +33,8 @@ export function createWindow(): void {
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   }
+
+  configureSessionPermissions()
+
+  return mainWindow
 }
