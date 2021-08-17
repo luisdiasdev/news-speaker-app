@@ -1,3 +1,4 @@
+const path = require('path')
 const rules = require('./webpack.rules')
 
 const mainRules = [
@@ -14,11 +15,15 @@ const mainRules = [
 ]
 
 module.exports = {
-  /**
-   * This is the main entry point for your application, it's the first file
-   * that runs in the main process.
-   */
-  entry: './src/backend/index.ts',
+  entry: {
+    index: './src/backend/index.ts',
+    preload: './src/backend/preload.ts'
+  },
+  output: {
+    path: path.resolve('.webpack', 'main'),
+    filename: '[name].js',
+    libraryTarget: 'commonjs2'
+  },
   // Put your normal webpack config below here
   module: {
     rules: rules.concat(mainRules)

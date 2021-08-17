@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron'
+import { URL } from 'url'
 
 import { createWindow } from './window'
 
@@ -32,6 +33,50 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+app.on('web-contents-created', (event, contents) => {
+  contents.on('will-attach-webview', (event, webPreferences, params) => {
+    // Strip away preload scripts if unused or verify their location is legitimate
+    delete webPreferences.preload
+    // delete webPreferences.preloadURL
+
+    // Disable Node.js integration
+    webPreferences.nodeIntegration = false
+
+    // Verify URL being loaded
+    if (!params.src.startsWith(MAIN_WINDOW_WEBPACK_ENTRY)) {
+      event.preventDefault()
+    }
+  })
+
+  contents.on('will-navigate', (event, navigationUrl) => {
+    const parsedUrl = new URL(navigationUrl)
+
+    if (parsedUrl.origin !== MAIN_WINDOW_WEBPACK_ENTRY) {
+      event.preventDefault()
+    }
+  })
+
+  contents.setWindowOpenHandler(({ url }) => {
+    const parsedUrl = new URL(url)
+    const validOrigins = [MAIN_WINDOW_WEBPACK_ENTRY]
+
+    // Log and prevent opening up a new window
+    if (!validOrigins.includes(parsedUrl.origin)) {
+      console.error(
+        `The application tried to open a new window at the following address: '${url}'. This attempt was blocked.`
+      )
+
+      return {
+        action: 'deny'
+      }
+    }
+
+    return {
+      action: 'allow'
+    }
+  })
 })
 
 process.on('uncaughtException', error => {
