@@ -25,7 +25,8 @@ module.exports = {
     'sort-imports': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'import/newline-after-import': 'error'
+    'import/newline-after-import': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   },
   overrides: [
     {
