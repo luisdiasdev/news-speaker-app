@@ -4,6 +4,7 @@ import {
   PAUSE,
   PERSIST,
   persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE
@@ -33,5 +34,7 @@ export const configure = (rootReducer: Reducer) => {
       })
   })
 
-  return store
+  const persistor = persistStore(store)
+
+  return { store, persistor }
 }

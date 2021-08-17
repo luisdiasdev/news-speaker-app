@@ -15,16 +15,19 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
 }
 
-function onAppReady() {
+async function onAppReady() {
   createWindow()
 
-  const store = makeStore()
+  const { store, persistor } = makeStore()
+
+  persistor.persist()
+
   console.log('redux store created -> ', store.getState())
+
   store.subscribe(() => {
     const state = store.getState()
     console.log('new state => ', state)
   })
-  store.dispatch(setValue('100'))
 }
 
 // This method will be called when Electron has finished
