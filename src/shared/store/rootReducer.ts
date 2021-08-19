@@ -8,7 +8,12 @@ const rootReducer = combineReducers({
   main: mainReducer
 })
 
-export function configureRootReducer(appName: string, scope: Scope) {
+type RootReducerType = typeof rootReducer
+
+export function configureRootReducer(
+  appName: string,
+  scope: Scope
+): RootReducerType {
   if (scope === Scope.MAIN) {
     return persistRootReducer(appName, rootReducer)
   } else {
@@ -16,4 +21,4 @@ export function configureRootReducer(appName: string, scope: Scope) {
   }
 }
 
-export type RootState = ReturnType<typeof rootReducer>
+export type AppState = ReturnType<RootReducerType>

@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import { URL } from 'url'
 
-import { configure as configureStore } from '../shared/store'
+import { configureStore } from '../shared/store'
 import { createWindow } from './window'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

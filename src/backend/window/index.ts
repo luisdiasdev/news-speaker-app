@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron'
 import path from 'path'
 
-import constants from '../constants'
+import constants from '../../shared/constants'
 import { isDevelopment } from '../helpers/is-dev'
 import { configureSessionPermissions } from './session'
 
