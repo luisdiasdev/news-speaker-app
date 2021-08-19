@@ -3,26 +3,19 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
-  persistReducer,
   persistStore,
   PURGE,
   REGISTER,
   REHYDRATE
 } from 'redux-persist'
 
-import { createStorage } from './persistence'
+import { persistRootReducer } from './persistence'
 
 export const configure = (rootReducer: Reducer) => {
   const appName = 'news-speaker'
-  const persistConfig = {
-    key: appName,
-    storage: createStorage(appName),
-    version: 1
-  }
 
-  const reducer = persistReducer(persistConfig, rootReducer)
   const store = configureStore({
-    reducer,
+    reducer: persistRootReducer(appName, rootReducer),
     devTools: {
       name: appName
     },
@@ -36,5 +29,7 @@ export const configure = (rootReducer: Reducer) => {
 
   const persistor = persistStore(store)
 
-  return { store, persistor }
+  persistor.persist()
+
+  return { store }
 }

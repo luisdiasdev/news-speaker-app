@@ -18,9 +18,7 @@ if (!app.requestSingleInstanceLock()) {
 async function onAppReady() {
   createWindow()
 
-  const { store, persistor } = makeStore()
-
-  persistor.persist()
+  const { store } = makeStore()
 
   console.log('redux store created -> ', store.getState())
 
