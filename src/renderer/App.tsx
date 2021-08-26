@@ -3,11 +3,11 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
-import { configureStore, Scope } from '../shared/store'
+import { configureStoreRenderer } from '../shared/store/configureStore/renderer'
 import Main from './pages/Main'
 import { defaultTheme } from './theme'
 
-const store = configureStore('news-speaker-app', Scope.RENDERER)
+const store = configureStoreRenderer('news-speaker-app')
 
 const App: React.FC = () => {
   return (
