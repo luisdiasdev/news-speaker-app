@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import { URL } from 'url'
 
 import { configureStoreMain } from '../shared/store/configureStore/main'
+import { mainStateEnhancer } from '../shared/store/ipc/main/stateEnhancer'
 import { createWindow } from './window'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -17,7 +18,7 @@ if (!app.requestSingleInstanceLock()) {
 async function onAppReady() {
   createWindow()
 
-  const store = configureStoreMain('news-speaker-app')
+  const store = configureStoreMain('news-speaker-app', [mainStateEnhancer()])
 
   console.log('redux store created -> ', store.getState())
 

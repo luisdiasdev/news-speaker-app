@@ -6,6 +6,10 @@ const constants = {
   WindowMinBounds: {
     width: 400,
     height: 300
+  },
+  IPC: {
+    InitReduxState: 'InitReduxState',
+    ReduxAction: 'ReduxAction'
   }
 }
 

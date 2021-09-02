@@ -2,7 +2,7 @@ import { IconButton } from '@chakra-ui/button'
 import React from 'react'
 import { BiX } from 'react-icons/bi'
 
-import { CloseButton, Container, TitleContainer } from './styles'
+import { Container, TitleContainer } from './styles'
 
 const TitleBar: React.FC = ({ children }) => {
   return (

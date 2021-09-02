@@ -1,4 +1,7 @@
-import { configureStore as configureReduxToolkitStore } from '@reduxjs/toolkit'
+import {
+  configureStore as configureReduxToolkitStore,
+  StoreEnhancer
+} from '@reduxjs/toolkit'
 import {
   FLUSH,
   PAUSE,
@@ -12,7 +15,10 @@ import {
 import { rootReducer } from '../../rootReducer'
 import { persistRootReducer } from './persistence'
 
-export function configureStoreMain(appName: string) {
+export function configureStoreMain(
+  appName: string,
+  enhancers?: StoreEnhancer[]
+) {
   const store = configureReduxToolkitStore({
     reducer: persistRootReducer(appName, rootReducer),
     devTools: {
@@ -23,7 +29,8 @@ export function configureStoreMain(appName: string) {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
         }
-      })
+      }),
+    enhancers: enhancers ? enhancers : []
   })
 
   const persistor = persistStore(store)
