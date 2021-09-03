@@ -4,15 +4,18 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 import { configureStoreRenderer } from '../shared/store/configureStore/renderer'
-import Main from './pages/Main'
+import { AppTemplate } from './components/AppTemplate'
+import { Router } from './router'
 import { defaultTheme } from './theme'
 
-console.log('api => ', __store, window.__store)
 const store = configureStoreRenderer('news-speaker-app', [
-  __store.rendererStoreEnhancer()
+  __store
+    ? __store.rendererStoreEnhancer()
+    : window.__store
+    ? window.__store.rendererStoreEnhancer()
+    : null
 ])
 
-console.log('store => ', store)
 store.subscribe(() => {
   const state = store.getState()
   console.log('[renderer] new state => ', state)
@@ -23,7 +26,9 @@ const App: React.FC = () => {
     <Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
         <ChakraProvider resetCSS>
-          <Main />
+          <AppTemplate>
+            <Router />
+          </AppTemplate>
         </ChakraProvider>
       </ThemeProvider>
     </Provider>
