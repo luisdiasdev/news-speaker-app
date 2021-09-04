@@ -1,1 +1,1 @@
-export { AppState } from './rootReducer'
+export * from './types'

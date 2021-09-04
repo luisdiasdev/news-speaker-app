@@ -1,9 +1,9 @@
 import { IconButton } from '@chakra-ui/button'
-import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
+import { Flex, HStack } from '@chakra-ui/layout'
 import React from 'react'
-import { BiPlay, BiPlus } from 'react-icons/bi'
-import { FaRssSquare } from 'react-icons/fa'
+import { BiPlus } from 'react-icons/bi'
 
+import { FeedList } from './FeedList'
 import { Container } from './styles'
 
 const RSSFeedList: React.FC = () => {
@@ -17,30 +17,7 @@ const RSSFeedList: React.FC = () => {
         />
       </Flex>
       <HStack justify='space-between'></HStack>
-      <List>
-        <ListItem>
-          <Flex justifyContent='space-between' alignItems='center'>
-            <HStack>
-              <Center>
-                <FaRssSquare />
-              </Center>
-              <p>Lorem Ipsum</p>
-            </HStack>
-            <IconButton variant='ghost' aria-label='play' icon={<BiPlay />} />
-          </Flex>
-        </ListItem>
-        <ListItem>
-          <Flex justifyContent='space-between' alignItems='center'>
-            <HStack>
-              <Center>
-                <FaRssSquare />
-              </Center>
-              <p>Lorem Ipsum</p>
-            </HStack>
-            <IconButton variant='ghost' aria-label='play' icon={<BiPlay />} />
-          </Flex>
-        </ListItem>
-      </List>
+      <FeedList />
     </Container>
   )
 }

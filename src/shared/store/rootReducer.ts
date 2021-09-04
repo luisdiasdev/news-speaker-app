@@ -1,11 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
+import { feedReducer } from './reducer/feed'
 import { mainReducer } from './reducer/main'
 
 export const rootReducer = combineReducers({
-  main: mainReducer
+  main: mainReducer,
+  feed: feedReducer
 })
-
-export type RootReducerType = typeof rootReducer
-
-export type AppState = ReturnType<RootReducerType>

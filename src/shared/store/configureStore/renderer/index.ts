@@ -2,6 +2,7 @@ import {
   configureStore as configureReduxToolkitStore,
   StoreEnhancer
 } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 
 import { rootReducer } from '../../rootReducer'
 
@@ -22,3 +23,4 @@ export function configureStoreRenderer(
 export type StoreType = ReturnType<typeof configureStoreRenderer>
 
 export type AppDispatchRenderer = StoreType['dispatch']
+export const useAppDispatchRenderer = () => useDispatch<AppDispatchRenderer>()

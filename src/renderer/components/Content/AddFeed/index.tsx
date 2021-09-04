@@ -1,9 +1,9 @@
-import { Center, Container, Heading, HStack } from '@chakra-ui/layout'
+import { Box, Center, Container, Heading, HStack } from '@chakra-ui/layout'
 import React from 'react'
 import { BiEdit } from 'react-icons/bi'
 
 import { ContentContainer } from '../ContentContainer'
-import Form from './form'
+import Form from './Form'
 
 const AddFeed: React.FC = () => {
   return (
@@ -17,7 +17,9 @@ const AddFeed: React.FC = () => {
             Add new feed
           </Heading>
         </HStack>
-        <Form />
+        <Box mt='4'>
+          <Form />
+        </Box>
       </Container>
     </ContentContainer>
   )
