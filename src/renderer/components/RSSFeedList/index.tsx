@@ -16,7 +16,7 @@ const RSSFeedList: React.FC = () => {
           aria-label='add rss feed'
         />
       </Flex>
-      <HStack justify='space-between'></HStack>
+      <HStack justify='space-between' mb='4'></HStack>
       <FeedList />
     </Container>
   )
