@@ -1,11 +1,11 @@
-import { app, BrowserWindow } from 'electron'
-import { URL } from 'url'
-
-import { configureStoreMain } from '../shared/store/configureStore/main'
+import { configureStoreMain } from '@shared/store/configureStore/main'
 import {
   mainStateEnhancer,
   mainStateSyncMiddleware
-} from '../shared/store/ipc/main/stateEnhancer'
+} from '@shared/store/ipc/main/stateEnhancer'
+import { app, BrowserWindow } from 'electron'
+import { URL } from 'url'
+
 import { syncMiddleware } from './middleware/syncMiddleware'
 import { createWindow } from './window'
 

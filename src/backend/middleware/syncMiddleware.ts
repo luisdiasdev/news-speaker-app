@@ -1,6 +1,5 @@
 import { Middleware } from '@reduxjs/toolkit'
-
-import { addFeed } from '../../shared/store/reducer/feed'
+import { addFeed } from '@shared/store/reducer/feed'
 
 export function syncMiddleware(): Middleware {
   return store => {

@@ -1,8 +1,8 @@
 import { Middleware } from '@reduxjs/toolkit'
+import constants from '@shared/constants'
 import { ipcMain, webContents } from 'electron'
 import { Action, AnyAction, Store, StoreEnhancer } from 'redux'
 
-import constants from '../../../../shared/constants'
 import { isValidAction } from '../fsa'
 import { stopActionForwarding } from '../stopForwarding'
 

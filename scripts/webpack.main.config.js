@@ -1,6 +1,8 @@
 const path = require('path')
 const rules = require('./webpack.rules')
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
 const mainRules = [
   {
     test: /\.tsx?$/,
@@ -29,6 +31,7 @@ module.exports = {
     rules: rules.concat(mainRules)
   },
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json']
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
+    plugins: [new TsconfigPathsPlugin({})]
   }
 }

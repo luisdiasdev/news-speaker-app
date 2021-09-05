@@ -1,9 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { configureStoreRenderer } from '@shared/store/configureStore/renderer'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
-import { configureStoreRenderer } from '../shared/store/configureStore/renderer'
 import { AppTemplate } from './components/AppTemplate'
 import { Router } from './router'
 import { defaultTheme } from './theme'

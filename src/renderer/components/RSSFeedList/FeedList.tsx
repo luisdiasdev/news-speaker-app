@@ -1,12 +1,11 @@
 import { IconButton } from '@chakra-ui/button'
 import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
+import { Feed } from '@shared/domain/feed'
+import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
 import { BiPlay } from 'react-icons/bi'
 import { FaRssSquare } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
-
-import { Feed } from '../../../shared/domain/feed'
-import { getFeedList } from '../../../shared/store/reducer/feed/selectors'
 
 type FeedListItemProps = {
   name: string

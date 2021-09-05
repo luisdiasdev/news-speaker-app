@@ -13,6 +13,11 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended'
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {}
+    }
+  },
   env: {
     browser: true,
     es6: true,
