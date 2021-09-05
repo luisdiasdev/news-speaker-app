@@ -2,7 +2,7 @@ import { ActionMeta, FluxStandardAction } from './fsa'
 
 export const stopActionForwarding = (
   action: FluxStandardAction<ActionMeta>
-): FluxStandardAction<ActionMeta> => ({
+): any => ({
   ...action,
   meta: {
     ...action.meta,

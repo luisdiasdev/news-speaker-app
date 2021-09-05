@@ -1,5 +1,6 @@
 import {
   configureStore as configureReduxToolkitStore,
+  Middleware,
   StoreEnhancer
 } from '@reduxjs/toolkit'
 import {
@@ -17,6 +18,7 @@ import { persistRootReducer } from './persistence'
 
 export function configureStoreMain(
   appName: string,
+  middlewares: Middleware[],
   enhancers?: StoreEnhancer[]
 ) {
   const store = configureReduxToolkitStore({
@@ -29,7 +31,7 @@ export function configureStoreMain(
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
         }
-      }),
+      }).prepend(middlewares),
     enhancers: enhancers ? enhancers : []
   })
 

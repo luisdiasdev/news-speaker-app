@@ -1,3 +1,4 @@
+import { Middleware } from '@reduxjs/toolkit'
 import { ipcMain, webContents } from 'electron'
 import { Action, AnyAction, Store, StoreEnhancer } from 'redux'
 
@@ -23,6 +24,24 @@ const forwardActionsToRenderer = <S = any, A extends Action = AnyAction>(
   }
 }
 
+export const mainStateSyncMiddleware: Middleware = ({ dispatch }) => {
+  ipcMain.on(constants.IPC.ReduxAction, (event, action: Action) => {
+    const localAction = stopActionForwarding(action)
+
+    dispatch(localAction)
+
+    webContents
+      .getAllWebContents()
+      .filter(
+        c => c.id !== event.sender.id && !c.getURL().startsWith('devtools://')
+      )
+      .forEach(contents =>
+        contents.send(constants.IPC.ReduxAction, localAction)
+      )
+  })
+  return next => action => next(action)
+}
+
 export const mainStateEnhancer = (): StoreEnhancer => createStore => {
   return (reducer, preloadedState) => {
     const store = createStore(reducer, preloadedState)
@@ -36,21 +55,6 @@ export const mainStateEnhancer = (): StoreEnhancer => createStore => {
       const { _persist: _, ...restState } = state
 
       return JSON.stringify(restState)
-    })
-
-    ipcMain.on(constants.IPC.ReduxAction, (event, action: Action) => {
-      const localAction = stopActionForwarding(action)
-
-      store.dispatch(action as never)
-
-      webContents
-        .getAllWebContents()
-        .filter(
-          c => c.id !== event.sender.id && !c.getURL().startsWith('devtools://')
-        )
-        .forEach(contents =>
-          contents.send(constants.IPC.ReduxAction, localAction)
-        )
     })
 
     return forwardActionsToRenderer(store)
