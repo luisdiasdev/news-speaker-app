@@ -1,3 +1,6 @@
+import { IPC } from './ipc'
+import { PATHS } from './paths'
+
 const constants = {
   WindowBounds: {
     width: 800,
@@ -7,10 +10,8 @@ const constants = {
     width: 400,
     height: 300
   },
-  IPC: {
-    InitReduxState: 'InitReduxState',
-    ReduxAction: 'ReduxAction'
-  }
+  IPC,
+  PATHS
 }
 
 export default constants

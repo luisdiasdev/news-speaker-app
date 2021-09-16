@@ -44,8 +44,7 @@ export const FeedList: React.FC = () => {
   return (
     <List>
       {feeds &&
-        feeds.length &&
-        feeds.map((feed: Feed) => (
+        Object.values(feeds).map(feed => (
           <FeedListItem name={feed.name} key={feed.name} />
         ))}
     </List>

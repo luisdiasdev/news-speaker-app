@@ -1,22 +1,27 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit'
 
 import { Feed } from '../../../domain/feed'
 
-interface FeedState {
-  items: Feed[]
-}
+const feedAdapter = createEntityAdapter<Feed>({
+  selectId: feed => feed.id
+})
 
-const initialState: FeedState = { items: [] }
+const initialState = feedAdapter.getInitialState()
 
 const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {
-    addFeed(state, action: PayloadAction<Feed>) {
-      state.items.push(action.payload)
+    addFeed: feedAdapter.addOne,
+    updateFeedContent(state, action: PayloadAction<Feed>) {
+      feedAdapter.upsertOne(state, action)
     }
   }
 })
 
-export const { addFeed } = feedSlice.actions
+export const { addFeed, updateFeedContent } = feedSlice.actions
 export const { reducer: feedReducer } = feedSlice

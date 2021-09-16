@@ -1,4 +1,4 @@
-import { Box, Stack } from '@chakra-ui/layout'
+import { Stack } from '@chakra-ui/layout'
 import {
   Button,
   FormControl,
@@ -11,6 +11,7 @@ import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { addFeed } from '@shared/store/reducer/feed'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
 const Form: React.FC = () => {
   const {
@@ -23,7 +24,7 @@ const Form: React.FC = () => {
   const dispatch = useAppDispatchRenderer()
 
   const onSubmit: SubmitHandler<Feed> = form => {
-    dispatch(addFeed(form))
+    dispatch(addFeed({ id: uuidv4(), ...form }))
     reset()
   }
 
