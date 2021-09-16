@@ -5,37 +5,29 @@ import { mkdir, writeFile } from 'fs/promises'
 import path from 'path'
 import Parser from 'rss-parser'
 
-const ensureDirectory = () =>
-  mkdir(
-    path.join(
-      app.getPath('userData'),
-      constants.PATHS.FEED_DOWNLOAD_FOLDER_PREFIX
-    ),
-    { recursive: true }
-  )
+const ensureDirectory = (filePath: string) =>
+  mkdir(path.join(filePath), { recursive: true })
 
-const getRSSFeedFileName = (id: string) =>
+const getRSSFeedFolderName = (id: string) =>
   path.join(
     app.getPath('userData'),
     constants.PATHS.FEED_DOWNLOAD_FOLDER_PREFIX,
-    `${id}.json`
+    id
   )
 
 export const saveParsedRSSFeedAsFile = async (
   feed: Feed,
   content: Parser.Output<any>,
-  lastUpdatedTime: number /** TODO: Use the timestamp in the file path */
+  lastUpdatedTime: number
 ) => {
   if (!content) {
     throw new Error('"content" must be valid')
   }
-  const outputFilePath = getRSSFeedFileName(feed.id)
+  const outputFileFolder = getRSSFeedFolderName(feed.id)
+  const outputFilePath = path.join(outputFileFolder, `${lastUpdatedTime}.json`)
   try {
-    console.error('path:', app.getPath('userData'))
-    await ensureDirectory()
-    await writeFile(outputFilePath, JSON.stringify(content), {
-      mode: ''
-    })
+    await ensureDirectory(outputFileFolder)
+    await writeFile(outputFilePath, JSON.stringify(content))
   } catch (error) {
     console.error('failed to save file: ', error)
   }
