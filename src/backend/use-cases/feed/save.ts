@@ -19,7 +19,7 @@ const getRSSFeedFolderName = (id: string) =>
 
 export const saveParsedRSSFeedAsFile = async (
   feed: Feed,
-  content: Parser.Output<any>,
+  content: string,
   lastUpdatedTime: number
 ) => {
   if (!content) {
@@ -29,9 +29,7 @@ export const saveParsedRSSFeedAsFile = async (
   const outputFilePath = path.join(outputFileFolder, `${lastUpdatedTime}.json`)
   try {
     await ensureDirectory(outputFileFolder)
-    const jsonContent = JSON.stringify(content)
-    await writeFile(outputFilePath, jsonContent)
-    return generateHashFromContent(jsonContent)
+    await writeFile(outputFilePath, content)
   } catch (error) {
     console.error('failed to save file: ', error)
   }
