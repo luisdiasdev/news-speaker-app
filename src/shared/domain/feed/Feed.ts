@@ -6,4 +6,5 @@ export interface Feed {
   url: string
   content?: Partial<Parser.Output<any>>
   lastUpdatedTime?: number
+  latestHash?: string
 }

@@ -9,12 +9,17 @@ export const fetchFeed = createAsyncThunk(
   async (feed: Feed, { dispatch }) => {
     const rssFeed = await fetchRSSFeedFromURL(feed.url)
     const lastUpdatedTime = +new Date()
-    await saveParsedRSSFeedAsFile(feed, rssFeed, lastUpdatedTime)
+    const latestHash = await saveParsedRSSFeedAsFile(
+      feed,
+      rssFeed,
+      lastUpdatedTime
+    )
 
     dispatch(
       updateFeedContent({
         ...feed,
-        lastUpdatedTime
+        lastUpdatedTime,
+        latestHash
       })
     )
   }

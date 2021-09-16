@@ -5,6 +5,8 @@ import { mkdir, writeFile } from 'fs/promises'
 import path from 'path'
 import Parser from 'rss-parser'
 
+import { generateHashFromContent } from './hash'
+
 const ensureDirectory = (filePath: string) =>
   mkdir(path.join(filePath), { recursive: true })
 
@@ -27,7 +29,9 @@ export const saveParsedRSSFeedAsFile = async (
   const outputFilePath = path.join(outputFileFolder, `${lastUpdatedTime}.json`)
   try {
     await ensureDirectory(outputFileFolder)
-    await writeFile(outputFilePath, JSON.stringify(content))
+    const jsonContent = JSON.stringify(content)
+    await writeFile(outputFilePath, jsonContent)
+    return generateHashFromContent(jsonContent)
   } catch (error) {
     console.error('failed to save file: ', error)
   }
