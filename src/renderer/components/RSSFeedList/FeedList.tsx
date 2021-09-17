@@ -3,7 +3,7 @@ import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
 import { useContent } from '@contexts/ContentContext'
 import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
-import { BiPlay } from 'react-icons/bi'
+import { BiEditAlt, BiPlay } from 'react-icons/bi'
 import { FaRssSquare } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
@@ -13,9 +13,10 @@ type FeedListItemProps = {
 }
 
 const FeedListItem: React.FC<FeedListItemProps> = ({ id, name }) => {
-  const { setEditFeed } = useContent()
+  const { setEditFeed, setPlayer } = useContent()
 
   const handleEditButtonClick = () => setEditFeed({ id })
+  const handlePlayButtonClick = () => setPlayer()
 
   return (
     <ListItem m='1'>
@@ -26,12 +27,20 @@ const FeedListItem: React.FC<FeedListItemProps> = ({ id, name }) => {
           </Center>
           <p>{name}</p>
         </HStack>
-        <IconButton
-          variant='ghost'
-          aria-label='play'
-          icon={<BiPlay />}
-          onClick={handleEditButtonClick}
-        />
+        <HStack>
+          <IconButton
+            variant='ghost'
+            aria-label='play'
+            icon={<BiEditAlt />}
+            onClick={handleEditButtonClick}
+          />
+          <IconButton
+            variant='ghost'
+            aria-label='play'
+            icon={<BiPlay />}
+            onClick={handlePlayButtonClick}
+          />
+        </HStack>
       </Flex>
     </ListItem>
   )
