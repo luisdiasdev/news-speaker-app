@@ -3,9 +3,6 @@ import { Feed } from '@shared/domain/feed'
 import { app } from 'electron'
 import { mkdir, writeFile } from 'fs/promises'
 import path from 'path'
-import Parser from 'rss-parser'
-
-import { generateHashFromContent } from './hash'
 
 const ensureDirectory = (filePath: string) =>
   mkdir(path.join(filePath), { recursive: true })

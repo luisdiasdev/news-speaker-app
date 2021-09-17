@@ -1,6 +1,5 @@
 import { IconButton } from '@chakra-ui/button'
 import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
-import { Feed } from '@shared/domain/feed'
 import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
 import { BiPlay } from 'react-icons/bi'
