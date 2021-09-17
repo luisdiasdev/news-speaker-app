@@ -17,11 +17,11 @@ const feedSlice = createSlice({
   initialState,
   reducers: {
     addFeed: feedAdapter.addOne,
-    updateFeedContent(state, action: PayloadAction<Feed>) {
+    updateFeed(state, action: PayloadAction<Feed>) {
       feedAdapter.upsertOne(state, action)
     }
   }
 })
 
-export const { addFeed, updateFeedContent } = feedSlice.actions
+export const { addFeed, updateFeed } = feedSlice.actions
 export const { reducer: feedReducer } = feedSlice

@@ -15,7 +15,11 @@ export const persistRootReducer = (appName: string, rootReducer: Reducer) => {
   const persistConfig = {
     key: appName,
     storage: createStorage(appName),
-    version: 1
+    version: 1,
+    // There is an issue in the source code of redux-persist (default setTimeout does not cleaning)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    timeout: null
   }
   return persistReducer(persistConfig, rootReducer)
 }

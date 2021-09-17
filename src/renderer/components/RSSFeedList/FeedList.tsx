@@ -1,5 +1,6 @@
 import { IconButton } from '@chakra-ui/button'
 import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
+import { useContent } from '@contexts/ContentContext'
 import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
 import { BiPlay } from 'react-icons/bi'
@@ -7,12 +8,17 @@ import { FaRssSquare } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
 type FeedListItemProps = {
+  id: string
   name: string
 }
 
-const FeedListItem: React.FC<FeedListItemProps> = ({ name }) => {
+const FeedListItem: React.FC<FeedListItemProps> = ({ id, name }) => {
+  const { setEditFeed } = useContent()
+
+  const handleEditButtonClick = () => setEditFeed({ id })
+
   return (
-    <ListItem>
+    <ListItem m='1'>
       <Flex justifyContent='space-between' alignItems='center'>
         <HStack>
           <Center>
@@ -20,7 +26,12 @@ const FeedListItem: React.FC<FeedListItemProps> = ({ name }) => {
           </Center>
           <p>{name}</p>
         </HStack>
-        <IconButton variant='ghost' aria-label='play' icon={<BiPlay />} />
+        <IconButton
+          variant='ghost'
+          aria-label='play'
+          icon={<BiPlay />}
+          onClick={handleEditButtonClick}
+        />
       </Flex>
     </ListItem>
   )
@@ -44,7 +55,7 @@ export const FeedList: React.FC = () => {
     <List>
       {feeds &&
         Object.values(feeds).map(feed => (
-          <FeedListItem name={feed.name} key={feed.name} />
+          <FeedListItem name={feed.name} key={feed.id} id={feed.id} />
         ))}
     </List>
   )

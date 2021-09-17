@@ -1,8 +1,7 @@
 import { Action, createAsyncThunk, ThunkDispatch } from '@reduxjs/toolkit'
 import { Feed } from '@shared/domain/feed'
 import { AppState } from '@shared/store'
-import { updateFeedContent } from '@shared/store/reducer/feed'
-import { getFeedList } from '@shared/store/reducer/feed/selectors'
+import { getFeedList, updateFeed } from '@shared/store/reducer/feed'
 
 import {
   fetchRSSFeedFromURL,
@@ -10,14 +9,14 @@ import {
   saveParsedRSSFeedAsFile
 } from '../use-cases/feed'
 
-export const updateFeed = createAsyncThunk<
+export const refreshFeed = createAsyncThunk<
   unknown,
   unknown,
   {
     state: AppState
     dispatch: ThunkDispatch<unknown, unknown, Action<unknown>>
   }
->('feed/updateFeed', async (_, { dispatch, getState }) => {
+>('feed/refreshFeed', async (payload: void, { dispatch, getState }) => {
   const feedList = getFeedList(getState())
 
   await Promise.all(
@@ -32,7 +31,7 @@ export const updateFeed = createAsyncThunk<
       if (latestHash === oldHash) {
         console.log('nothing to do for feed...', name)
         await dispatch(
-          updateFeedContent({
+          updateFeed({
             ...feed,
             lastUpdatedTime
           })
@@ -44,7 +43,7 @@ export const updateFeed = createAsyncThunk<
       // todo: remove older feeds
       console.log('updated feed...', name, latestHash, oldHash)
       await dispatch(
-        updateFeedContent({
+        updateFeed({
           ...feed,
           lastUpdatedTime,
           latestHash
@@ -64,7 +63,7 @@ export const fetchFeed = createAsyncThunk(
     await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
 
     dispatch(
-      updateFeedContent({
+      updateFeed({
         ...feed,
         lastUpdatedTime,
         latestHash

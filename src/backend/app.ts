@@ -22,16 +22,12 @@ if (!app.requestSingleInstanceLock()) {
 async function onAppReady() {
   createWindow()
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const store = configureStoreMain(
     'news-speaker-app',
     [mainStateSyncMiddleware, syncMiddleware()],
     [mainStateEnhancer()]
   )
-
-  store.subscribe(() => {
-    const state = store.getState()
-    console.log('new state => ', state)
-  })
 }
 
 // This method will be called when Electron has finished

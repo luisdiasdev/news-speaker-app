@@ -12,6 +12,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@shared/*": ["src/shared/*"],
+      "@components/*": ["src/renderer/components/*"],
+      "@contexts/*": ["src/renderer/contexts/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react"
