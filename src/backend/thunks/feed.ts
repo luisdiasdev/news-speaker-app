@@ -8,6 +8,7 @@ import {
   generateHashFromContent,
   saveParsedRSSFeedAsFile
 } from '../use-cases/feed'
+import { getHeadlines } from '../use-cases/feed/headline'
 
 export const refreshFeed = createAsyncThunk<
   unknown,
@@ -46,7 +47,8 @@ export const refreshFeed = createAsyncThunk<
         updateFeed({
           ...feed,
           lastUpdatedTime,
-          latestHash
+          latestHash,
+          headlines: getHeadlines(rssFeed)
         })
       )
     })
@@ -62,11 +64,12 @@ export const fetchFeed = createAsyncThunk(
     const latestHash = generateHashFromContent(jsonContent)
     await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
 
-    dispatch(
+    await dispatch(
       updateFeed({
         ...feed,
         lastUpdatedTime,
-        latestHash
+        latestHash,
+        headlines: getHeadlines(rssFeed)
       })
     )
   }

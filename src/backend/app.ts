@@ -9,6 +9,12 @@ import { URL } from 'url'
 import { syncMiddleware } from './middleware/syncMiddleware'
 import { createWindow } from './window'
 
+// On Linux based OSes you need to have `speech-dispatcher` and `espeak` installed
+// Need to verify on Windows & MacOS what is the behaviour
+// https://github.com/electron/electron/issues/22844#issuecomment-635997898
+// https://github.com/electron/electron/issues/586
+app.commandLine.appendSwitch('enable-speech-dispatcher')
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   // eslint-disable-line global-require
