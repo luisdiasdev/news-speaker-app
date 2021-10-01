@@ -23,6 +23,12 @@ export const refreshFeed = createAsyncThunk<
   await Promise.all(
     Object.values(feedList).map(async feed => {
       console.log('updating feed...')
+      await dispatch(
+        updateFeed({
+          ...feed,
+          updating: true
+        })
+      )
       const { url, latestHash: oldHash, name } = feed
       const rssFeed = await fetchRSSFeedFromURL(url)
       const jsonContent = JSON.stringify(rssFeed)
@@ -34,7 +40,8 @@ export const refreshFeed = createAsyncThunk<
         await dispatch(
           updateFeed({
             ...feed,
-            lastUpdatedTime
+            lastUpdatedTime,
+            updating: false
           })
         )
         return
@@ -48,7 +55,8 @@ export const refreshFeed = createAsyncThunk<
           ...feed,
           lastUpdatedTime,
           latestHash,
-          headlines: getHeadlines(rssFeed)
+          headlines: getHeadlines(rssFeed),
+          updating: false
         })
       )
     })
@@ -58,6 +66,12 @@ export const refreshFeed = createAsyncThunk<
 export const fetchFeed = createAsyncThunk(
   'feed/fetchFeed',
   async (feed: Feed, { dispatch }) => {
+    await dispatch(
+      updateFeed({
+        ...feed,
+        downloading: true
+      })
+    )
     const rssFeed = await fetchRSSFeedFromURL(feed.url)
     const lastUpdatedTime = +new Date()
     const jsonContent = JSON.stringify(rssFeed)
@@ -69,7 +83,8 @@ export const fetchFeed = createAsyncThunk(
         ...feed,
         lastUpdatedTime,
         latestHash,
-        headlines: getHeadlines(rssFeed)
+        headlines: getHeadlines(rssFeed),
+        downloading: false
       })
     )
   }
