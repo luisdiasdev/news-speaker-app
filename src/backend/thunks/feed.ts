@@ -4,11 +4,13 @@ import { AppState } from '@shared/store'
 import { getFeedList, updateFeed } from '@shared/store/reducer/feed'
 
 import {
+  downloadFeedImage,
   fetchRSSFeedFromURL,
   generateHashFromContent,
+  getFeedMetadata,
+  getHeadlines,
   saveParsedRSSFeedAsFile
 } from '../use-cases/feed'
-import { getHeadlines } from '../use-cases/feed/headline'
 
 export const refreshFeed = createAsyncThunk<
   unknown,
@@ -47,6 +49,13 @@ export const refreshFeed = createAsyncThunk<
         return
       }
 
+      const metadata = getFeedMetadata(rssFeed)
+      const { internalImageURL } = await downloadFeedImage(
+        feed.id,
+        metadata.imageUrl
+      )
+      metadata.internalImageUrl = internalImageURL
+
       await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
       // todo: remove older feeds
       console.log('updated feed...', name, latestHash, oldHash)
@@ -56,6 +65,7 @@ export const refreshFeed = createAsyncThunk<
           lastUpdatedTime,
           latestHash,
           headlines: getHeadlines(rssFeed),
+          metadata,
           updating: false
         })
       )
@@ -73,6 +83,12 @@ export const fetchFeed = createAsyncThunk(
       })
     )
     const rssFeed = await fetchRSSFeedFromURL(feed.url)
+    const metadata = getFeedMetadata(rssFeed)
+    const { internalImageURL } = await downloadFeedImage(
+      feed.id,
+      metadata.imageUrl
+    )
+    metadata.internalImageUrl = internalImageURL
     const lastUpdatedTime = +new Date()
     const jsonContent = JSON.stringify(rssFeed)
     const latestHash = generateHashFromContent(jsonContent)
@@ -84,6 +100,7 @@ export const fetchFeed = createAsyncThunk(
         lastUpdatedTime,
         latestHash,
         headlines: getHeadlines(rssFeed),
+        metadata,
         downloading: false
       })
     )

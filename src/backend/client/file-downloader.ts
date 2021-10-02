@@ -1,14 +1,22 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import fs, { ReadStream } from 'fs'
 
+type DownloadResponse = {
+  outputFilePath: string
+  totalDownloadSize: number
+  downloadedBytes: number
+  contentType: string
+}
+
 type ProgressCallback = (progress: number) => void
+
 export const fileDownload = (
   url: string,
   outputFilePath: string,
   progressCallback?: ProgressCallback,
   axiosRequestConfig?: AxiosRequestConfig
-) => {
-  axios
+): Promise<DownloadResponse> => {
+  return axios
     .get<ReadStream>(url, {
       responseType: 'stream',
       ...axiosRequestConfig
@@ -19,6 +27,7 @@ export const fileDownload = (
           response.data.pipe(fs.createWriteStream(outputFilePath))
 
           const totalDownloadSize = response.headers['content-Length']
+          const contentType: string = response.headers['content-type']
           let downloadedBytes = 0
 
           response.data.on('data', data => {
@@ -34,7 +43,12 @@ export const fileDownload = (
             reject(error)
           })
           response.data.on('end', () =>
-            resolve({ outputFilePath, totalDownloadSize, downloadedBytes })
+            resolve({
+              outputFilePath,
+              totalDownloadSize,
+              downloadedBytes,
+              contentType
+            })
           )
         })
     )

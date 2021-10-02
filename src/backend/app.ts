@@ -3,9 +3,10 @@ import {
   mainStateEnhancer,
   mainStateSyncMiddleware
 } from '@shared/store/ipc/main/stateEnhancer'
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, protocol } from 'electron'
 import { URL } from 'url'
 
+import FileProtocol from './fileProtocol'
 import { syncMiddleware } from './middleware/syncMiddleware'
 import { createWindow } from './window'
 
@@ -26,6 +27,11 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 async function onAppReady() {
+  protocol.registerFileProtocol(
+    FileProtocol.scheme,
+    FileProtocol.fileProtocolHandler
+  )
+
   createWindow()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,3 +1,7 @@
+export * from './details'
 export * from './fetch'
+export * from './folder'
 export * from './hash'
+export * from './headline'
+export * from './images'
 export * from './save'

@@ -10,7 +10,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "clean": "rm -rf /home/luis/.config/news-speaker-app/news-speaker-app.json && rm -rf /home/luis/.config/news-speaker-app/downloads"
   },
   "keywords": [],
   "author": {

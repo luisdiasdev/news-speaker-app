@@ -3,7 +3,7 @@ import { BrowserWindow } from 'electron'
 import path from 'path'
 
 import { isDevelopment } from '../helpers/is-dev'
-import { configureSessionPermissions } from './session'
+import { configureSessionCSP, configureSessionPermissions } from './session'
 
 export function createWindow(): BrowserWindow {
   // Create the browser window.
@@ -35,6 +35,7 @@ export function createWindow(): BrowserWindow {
   }
 
   configureSessionPermissions()
+  configureSessionCSP()
 
   return mainWindow
 }

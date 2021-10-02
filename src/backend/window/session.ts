@@ -20,3 +20,15 @@ export function configureSessionPermissions(): void {
       }
     })
 }
+
+export function configureSessionCSP() {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy':
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' appfiles:"
+      }
+    })
+  })
+}
