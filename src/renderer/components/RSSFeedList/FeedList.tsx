@@ -4,9 +4,10 @@ import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
 import { useContent } from '@contexts/ContentContext'
 import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
-import { BiEditAlt, BiPlay, BiRefresh } from 'react-icons/bi'
-import { FaRssSquare } from 'react-icons/fa'
+import { BiCheck, BiEditAlt, BiPlay, BiRss } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
+import UseAnimations from 'react-useanimations'
+import LoadingAnimation from 'react-useanimations/lib/loading'
 
 type FeedListItemProps = {
   id: string
@@ -21,22 +22,37 @@ const FeedListItem: React.FC<FeedListItemProps> = ({
   updating,
   downloading
 }) => {
-  const { setEditFeed, setPlayer } = useContent()
+  const { setEditFeed, setPlayer, setShowFeed } = useContent()
 
-  const handleEditButtonClick = () => setEditFeed({ id })
-  const handlePlayButtonClick = () => setPlayer()
+  const handleEditButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation()
+    setEditFeed({ id })
+  }
+  const handlePlayButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation()
+    setPlayer()
+  }
+  const handleLineClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation()
+    setShowFeed({ id })
+  }
 
   return (
-    <ListItem m='1'>
+    <ListItem m='1' cursor='pointer' onClick={handleLineClick}>
       <Flex justifyContent='space-between' alignItems='center'>
         <HStack>
           <Center>
-            <FaRssSquare />
+            <BiRss />
           </Center>
           <p>{name}</p>
           {(updating || downloading) && (
             <Center>
-              <Icon as={BiRefresh} color='green.500' w={6} h={6} />
+              <UseAnimations animation={LoadingAnimation} />
+            </Center>
+          )}
+          {!downloading && !updating && (
+            <Center>
+              <Icon as={BiCheck} color='green.500' w={5} h={5} />
             </Center>
           )}
         </HStack>

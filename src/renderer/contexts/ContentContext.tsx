@@ -1,21 +1,28 @@
 import React, { createContext, useContext, useState } from 'react'
 
-export type RightSideContentTypes = 'AddFeed' | 'EditFeed' | 'Player'
+export type RightSideContentTypes =
+  | 'AddFeed'
+  | 'EditFeed'
+  | 'Player'
+  | 'ShowFeed'
 
 export type ContentContextType = {
   rightSideContent: RightSideContentTypes
   args: Record<string, unknown>
   setAddFeed: () => void
   setEditFeed: (args: Record<string, unknown>) => void
+  setShowFeed: (args: Record<string, unknown>) => void
   setPlayer: () => void
 }
 
 const defaultFallbackFn = () => console.warn('no content provider')
+
 export const ContentContext = createContext<ContentContextType>({
   rightSideContent: 'AddFeed',
   args: {},
   setAddFeed: () => defaultFallbackFn,
   setEditFeed: () => defaultFallbackFn,
+  setShowFeed: () => defaultFallbackFn,
   setPlayer: () => defaultFallbackFn
 })
 
@@ -35,6 +42,10 @@ const ContentContextProvider: React.FC = ({ children }) => {
         setEditFeed: args => {
           setArgs(args)
           setRightSideContent('EditFeed')
+        },
+        setShowFeed: args => {
+          setArgs(args)
+          setRightSideContent('ShowFeed')
         },
         setPlayer: () => setRightSideContent('Player')
       }}
