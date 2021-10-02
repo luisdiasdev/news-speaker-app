@@ -19,9 +19,22 @@ type ShowFeedProps = Record<string, unknown>
 
 const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
   const feed = useSelector(getFeedById(id as string))
+
+  if (!feed || !feed.metadata) {
+    return (
+      <ContentContainer>
+        <Container>
+          <HStack>
+            <Center>Oops! Feed not found. Consider adding a new one.</Center>
+          </HStack>
+        </Container>
+      </ContentContainer>
+    )
+  }
   const originalFeedTitle = feed && feed.metadata?.title
   const feedImageUrl = feed && feed.metadata?.internalImageUrl
   const feedImageTitle = feed && feed.metadata?.imageTitle
+  const feedDescription = feed && feed.metadata.description
 
   return (
     <ContentContainer>
@@ -39,7 +52,7 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
             </Heading>
           )}
         </HStack>
-        <HStack mt='2'>
+        <HStack mt='2' mb='4'>
           <Text fontSize='sm' as='sub'>
             Updated:{' '}
             <span>
@@ -53,10 +66,15 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
         </HStack>
         <HStack>
           {feedImageUrl && (
-            <Box boxSize='md'>
-              <Image src={`appfiles://${feedImageUrl}`} alt={feedImageTitle} />
-            </Box>
+            <Image
+              src={`appfiles://${feedImageUrl}`}
+              alt={feedImageTitle}
+              boxSize='150px'
+            />
           )}
+        </HStack>
+        <HStack mt='8'>
+          {feedDescription && <Text as='p'>{feedDescription}</Text>}
         </HStack>
       </Container>
     </ContentContainer>

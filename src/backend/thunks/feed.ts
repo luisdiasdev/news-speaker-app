@@ -50,12 +50,13 @@ export const refreshFeed = createAsyncThunk<
       }
 
       const metadata = getFeedMetadata(rssFeed)
-      const { internalImageURL } = await downloadFeedImage(
-        feed.id,
-        metadata.imageUrl
-      )
-      metadata.internalImageUrl = internalImageURL
-
+      if (metadata.imageUrl) {
+        const { internalImageURL } = await downloadFeedImage(
+          feed.id,
+          metadata.imageUrl
+        )
+        metadata.internalImageUrl = internalImageURL
+      }
       await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
       // todo: remove older feeds
       console.log('updated feed...', name, latestHash, oldHash)
@@ -84,11 +85,13 @@ export const fetchFeed = createAsyncThunk(
     )
     const rssFeed = await fetchRSSFeedFromURL(feed.url)
     const metadata = getFeedMetadata(rssFeed)
-    const { internalImageURL } = await downloadFeedImage(
-      feed.id,
-      metadata.imageUrl
-    )
-    metadata.internalImageUrl = internalImageURL
+    if (metadata.imageUrl) {
+      const { internalImageURL } = await downloadFeedImage(
+        feed.id,
+        metadata.imageUrl
+      )
+      metadata.internalImageUrl = internalImageURL
+    }
     const lastUpdatedTime = +new Date()
     const jsonContent = JSON.stringify(rssFeed)
     const latestHash = generateHashFromContent(jsonContent)
