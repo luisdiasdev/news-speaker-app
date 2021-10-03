@@ -1,10 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface MainState {
   value: string
 }
 
 const initialState = { value: 'main' } as MainState
+
+export const openExternalLinkAction = createAction<string>(
+  'main/openExternalLink'
+)
 
 const mainSlice = createSlice({
   name: 'main',

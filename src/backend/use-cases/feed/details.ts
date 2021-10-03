@@ -7,5 +7,6 @@ export const getFeedMetadata = (
   title: rssContent.title,
   description: rssContent.description,
   imageUrl: rssContent.image?.url,
-  imageTitle: rssContent.image?.title
+  imageTitle: rssContent.image?.title,
+  link: rssContent.link
 })

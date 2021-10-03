@@ -4,6 +4,7 @@ export interface FeedMetadata {
   imageUrl?: string
   imageTitle?: string
   internalImageUrl?: string
+  link?: string
 }
 
 export interface FeedHeadline {
