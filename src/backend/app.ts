@@ -32,12 +32,12 @@ async function onAppReady() {
     FileProtocol.fileProtocolHandler
   )
 
-  createWindow()
+  const mainWindow = createWindow()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const store = configureStoreMain(
     'news-speaker-app',
-    [mainStateSyncMiddleware, syncMiddleware()],
+    [mainStateSyncMiddleware, syncMiddleware(mainWindow)],
     [mainStateEnhancer()]
   )
 }

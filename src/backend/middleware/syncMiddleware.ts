@@ -1,13 +1,20 @@
 import { Middleware } from '@reduxjs/toolkit'
 import { AppDispatchMain } from '@shared/store/configureStore/main'
 import { addFeed } from '@shared/store/reducer/feed'
-import { openExternalLinkAction } from '@shared/store/reducer/main'
+import {
+  closeWindowAction,
+  openExternalLinkAction
+} from '@shared/store/reducer/main'
+import { BrowserWindow } from 'electron'
 import { REHYDRATE } from 'redux-persist'
 
+import { closeWindow } from '../helpers/close-window'
 import { openInBrowser } from '../helpers/open'
 import { fetchFeed, refreshFeed } from '../thunks/feed'
 
-export function syncMiddleware(): Middleware<never, never, AppDispatchMain> {
+export function syncMiddleware(
+  mainWindow: BrowserWindow
+): Middleware<never, never, AppDispatchMain> {
   return ({ dispatch }) => {
     return next => action => {
       switch (action.type) {
@@ -26,9 +33,12 @@ export function syncMiddleware(): Middleware<never, never, AppDispatchMain> {
           return actionResult
         }
         case openExternalLinkAction.type: {
-          if (action.payload) {
-            openInBrowser(action.payload)
-          }
+          openInBrowser(action.payload)
+          return next(action)
+        }
+
+        case closeWindowAction.type: {
+          closeWindow(mainWindow)
           return next(action)
         }
 

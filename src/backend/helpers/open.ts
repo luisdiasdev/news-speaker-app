@@ -12,6 +12,9 @@ const isProtocolAllowed = (url: string) => {
   return allowedProtocols.includes(protocol)
 }
 export const openInBrowser = (url: string) => {
+  if (!url) {
+    return
+  }
   if (!isProtocolAllowed) {
     console.warn('Trying to open URL with unsupported protocol: ', url)
     return

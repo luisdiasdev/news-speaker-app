@@ -5,9 +5,11 @@ import path from 'path'
 import { isDevelopment } from '../helpers/is-dev'
 import { configureSessionCSP, configureSessionPermissions } from './session'
 
+let mainWindow: BrowserWindow
+
 export function createWindow(): BrowserWindow {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: constants.WindowBounds.height,
     width: constants.WindowBounds.width,
     minHeight: constants.WindowMinBounds.height,
