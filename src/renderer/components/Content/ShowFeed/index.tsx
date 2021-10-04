@@ -1,28 +1,11 @@
-import { Button, IconButton } from '@chakra-ui/button'
+import { IconButton } from '@chakra-ui/button'
 import { useDisclosure } from '@chakra-ui/hooks'
 import { Image } from '@chakra-ui/image'
-import {
-  Box,
-  Center,
-  Container,
-  Heading,
-  HStack,
-  Text,
-  VStack
-} from '@chakra-ui/layout'
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay
-} from '@chakra-ui/modal'
+import { Center, Container, Heading, HStack, Text } from '@chakra-ui/layout'
 import ExternalLinkConsentModal from '@components/ExternalLinkConsentModal'
 import { getFeedById } from '@shared/store/reducer/feed'
 import { formatRelative } from 'date-fns'
-import React, { useState } from 'react'
+import React from 'react'
 import { BiLinkExternal, BiRss } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
