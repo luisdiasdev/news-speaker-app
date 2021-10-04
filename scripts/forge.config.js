@@ -22,6 +22,19 @@ module.exports = {
       config: {}
     }
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'luisdiasdev',
+          name: 'news-speaker-app'
+        },
+        draft: true,
+        prerelease: true,
+      }
+    }
+  ],
   plugins: [
     [
       '@electron-forge/plugin-webpack',
