@@ -2,13 +2,20 @@ import { IconButton } from '@chakra-ui/button'
 import { useDisclosure } from '@chakra-ui/hooks'
 import { Image } from '@chakra-ui/image'
 import { Center, Container, Heading, HStack, Text } from '@chakra-ui/layout'
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 import ExternalLinkConsentModal from '@components/ExternalLinkConsentModal'
 import { useContent } from '@contexts/ContentContext'
 import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { deleteFeed, getFeedById } from '@shared/store/reducer/feed'
 import { formatRelative } from 'date-fns'
 import React, { useCallback } from 'react'
-import { BiEditAlt, BiLinkExternal, BiRss, BiTrash } from 'react-icons/bi'
+import {
+  BiEditAlt,
+  BiLinkExternal,
+  BiMenu,
+  BiRss,
+  BiTrash
+} from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 import { ContentContainer } from '../ContentContainer'
@@ -59,36 +66,35 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
             {feed && feed.name}
           </Heading>
           <HStack>
-            <IconButton
-              variant='ghost'
-              aria-label='play'
-              icon={<BiEditAlt />}
-              onClick={onEditFeed}
-            />
-            <IconButton
-              variant='ghost'
-              aria-label='Remove Feed'
-              fontSize='md'
-              icon={<BiTrash />}
-              onClick={onDeleteFeed}
-            />
-            {feedLink && (
-              <>
-                <IconButton
-                  variant='ghost'
-                  aria-label='Open Feed Page'
-                  fontSize='md'
-                  icon={<BiLinkExternal />}
-                  onClick={onOpen}
-                />
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label='Options'
+                icon={<BiMenu />}
+                variant='ghost'
+              />
+              <MenuList>
+                <MenuItem icon={<BiEditAlt />} onClick={onEditFeed}>
+                  Edit
+                </MenuItem>
+                <MenuItem icon={<BiTrash />} onClick={onDeleteFeed}>
+                  Remove
+                </MenuItem>
+                {feedLink && (
+                  <>
+                    <MenuItem icon={<BiLinkExternal />} onClick={onOpen}>
+                      Open Feed Link
+                    </MenuItem>
 
-                <ExternalLinkConsentModal
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  link={feedLink}
-                />
-              </>
-            )}
+                    <ExternalLinkConsentModal
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      link={feedLink}
+                    />
+                  </>
+                )}
+              </MenuList>
+            </Menu>
           </HStack>
         </HStack>
         <HStack>
