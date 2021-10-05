@@ -3,8 +3,11 @@ import React from 'react'
 
 import { ContentContainer } from '../ContentContainer'
 import Controls from './Controls'
+import Headlines from './Headlines'
 
-const Player: React.FC = () => {
+type PlayerProps = Record<string, unknown>
+
+const Player: React.FC<PlayerProps> = ({ id }) => {
   return (
     <ContentContainer>
       <Container>
@@ -19,6 +22,7 @@ const Player: React.FC = () => {
           <Center>
             <Controls />
           </Center>
+          <Headlines id={id as string} />
         </Box>
       </Container>
     </ContentContainer>

@@ -15,7 +15,7 @@ export type ContentContextType = {
   setAddFeed: () => void
   setEditFeed: (args: Record<string, unknown>) => void
   setShowFeed: (args: Record<string, unknown>) => void
-  setPlayer: () => void
+  setPlayer: (args: Record<string, unknown>) => void
 }
 
 const defaultFallbackFn = () => console.warn('no content provider')
@@ -54,7 +54,10 @@ const ContentContextProvider: React.FC = ({ children }) => {
           setArgs(args)
           setRightSideContent('ShowFeed')
         },
-        setPlayer: () => setRightSideContent('Player')
+        setPlayer: args => {
+          setArgs(args)
+          setRightSideContent('Player')
+        }
       }}
     >
       {children}

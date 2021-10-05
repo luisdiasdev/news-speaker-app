@@ -26,7 +26,7 @@ const FeedListItem: React.FC<FeedListItemProps> = ({
 
   const handlePlayButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation()
-    setPlayer()
+    setPlayer({ id })
   }
   const handleLineClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation()

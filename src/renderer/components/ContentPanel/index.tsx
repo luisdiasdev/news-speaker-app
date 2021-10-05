@@ -24,7 +24,7 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ leftPanel }) => {
       case 'ShowFeed':
         return <ShowFeed {...args} />
       case 'Player':
-        return <Player />
+        return <Player {...args} />
       case 'Home':
       default:
         return <Home />
