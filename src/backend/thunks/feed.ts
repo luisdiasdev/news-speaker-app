@@ -4,6 +4,7 @@ import { AppState } from '@shared/store'
 import { getFeedList, updateFeed } from '@shared/store/reducer/feed'
 
 import {
+  deleteFeedFolder,
   downloadFeedImage,
   fetchRSSFeedFromURL,
   generateHashFromContent,
@@ -107,5 +108,12 @@ export const fetchFeed = createAsyncThunk(
         downloading: false
       })
     )
+  }
+)
+
+export const deleteFeedFiles = createAsyncThunk(
+  'feed/deleteFeedFiles',
+  async (id: string) => {
+    await deleteFeedFolder(id)
   }
 )

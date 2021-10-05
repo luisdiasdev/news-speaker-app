@@ -1,3 +1,4 @@
+export * from './delete'
 export * from './details'
 export * from './fetch'
 export * from './folder'

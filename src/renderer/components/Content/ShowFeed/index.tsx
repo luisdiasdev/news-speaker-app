@@ -3,10 +3,12 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import { Image } from '@chakra-ui/image'
 import { Center, Container, Heading, HStack, Text } from '@chakra-ui/layout'
 import ExternalLinkConsentModal from '@components/ExternalLinkConsentModal'
-import { getFeedById } from '@shared/store/reducer/feed'
+import { useContent } from '@contexts/ContentContext'
+import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
+import { deleteFeed, getFeedById } from '@shared/store/reducer/feed'
 import { formatRelative } from 'date-fns'
-import React from 'react'
-import { BiLinkExternal, BiRss } from 'react-icons/bi'
+import React, { useCallback } from 'react'
+import { BiLinkExternal, BiRss, BiTrash } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 import { ContentContainer } from '../ContentContainer'
@@ -15,6 +17,13 @@ type ShowFeedProps = Record<string, unknown>
 
 const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { setAddFeed } = useContent()
+  const dispatch = useAppDispatchRenderer()
+  const onDeleteFeed = useCallback(() => {
+    dispatch(deleteFeed(id as string))
+    setAddFeed()
+  }, [id, dispatch, setAddFeed])
+
   const feed = useSelector(getFeedById(id as string))
 
   if (!feed || !feed.metadata) {
@@ -39,28 +48,37 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
       <Container>
         <HStack justify='space-between'>
           <Center>
-            <BiRss />
+            <BiRss fontSize='1.25rem' />
           </Center>
           <Heading as='h2' size='md'>
             {feed && feed.name}
           </Heading>
-          {feedLink && (
-            <>
-              <IconButton
-                variant='ghost'
-                aria-label='Open Feed Page'
-                fontSize='sm'
-                icon={<BiLinkExternal />}
-                onClick={onOpen}
-              />
+          <HStack>
+            <IconButton
+              variant='ghost'
+              aria-label='Remove Feed'
+              fontSize='md'
+              icon={<BiTrash />}
+              onClick={onDeleteFeed}
+            />
+            {feedLink && (
+              <>
+                <IconButton
+                  variant='ghost'
+                  aria-label='Open Feed Page'
+                  fontSize='md'
+                  icon={<BiLinkExternal />}
+                  onClick={onOpen}
+                />
 
-              <ExternalLinkConsentModal
-                isOpen={isOpen}
-                onClose={onClose}
-                link={feedLink}
-              />
-            </>
-          )}
+                <ExternalLinkConsentModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  link={feedLink}
+                />
+              </>
+            )}
+          </HStack>
         </HStack>
         <HStack>
           {originalFeedTitle && (
