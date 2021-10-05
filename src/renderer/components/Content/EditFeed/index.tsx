@@ -11,7 +11,7 @@ const EditFeed: React.FC<EditFeedProps> = ({ id }) => {
   return (
     <ContentContainer>
       <Container>
-        <HStack>
+        <HStack boxSize='10'>
           <Center>
             <BiEdit />
           </Center>

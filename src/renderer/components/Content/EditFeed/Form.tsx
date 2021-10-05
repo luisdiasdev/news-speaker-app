@@ -65,10 +65,8 @@ const Form: React.FC<FormProps> = ({ id }) => {
             id='url'
             type='text'
             placeholder='https://some.podcast.com/rss'
-            {...register('url', {
-              required: 'The URL is required'
-              // TODO: Add validation to the URL
-            })}
+            readOnly
+            {...register('url')}
           />
           <FormErrorMessage>
             {errors.url && errors.url.message}
