@@ -22,12 +22,8 @@ const FeedListItem: React.FC<FeedListItemProps> = ({
   updating,
   downloading
 }) => {
-  const { setEditFeed, setPlayer, setShowFeed } = useContent()
+  const { setPlayer, setShowFeed } = useContent()
 
-  const handleEditButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation()
-    setEditFeed({ id })
-  }
   const handlePlayButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation()
     setPlayer()
@@ -57,12 +53,6 @@ const FeedListItem: React.FC<FeedListItemProps> = ({
           )}
         </HStack>
         <HStack>
-          <IconButton
-            variant='ghost'
-            aria-label='play'
-            icon={<BiEditAlt />}
-            onClick={handleEditButtonClick}
-          />
           <IconButton
             variant='ghost'
             aria-label='play'

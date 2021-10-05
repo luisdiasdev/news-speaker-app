@@ -1,5 +1,6 @@
 import AddFeed from '@components/Content/AddFeed'
 import EditFeed from '@components/Content/EditFeed'
+import Home from '@components/Content/Home'
 import Player from '@components/Content/Player'
 import ShowFeed from '@components/Content/ShowFeed'
 import { useContent } from '@contexts/ContentContext'
@@ -23,9 +24,10 @@ const ContentPanel: React.FC<ContentPanelProps> = ({ leftPanel }) => {
       case 'ShowFeed':
         return <ShowFeed {...args} />
       case 'Player':
-      default:
-        // Player
         return <Player />
+      case 'Home':
+      default:
+        return <Home />
     }
   }
 

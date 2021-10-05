@@ -8,7 +8,7 @@ import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { deleteFeed, getFeedById } from '@shared/store/reducer/feed'
 import { formatRelative } from 'date-fns'
 import React, { useCallback } from 'react'
-import { BiLinkExternal, BiRss, BiTrash } from 'react-icons/bi'
+import { BiEditAlt, BiLinkExternal, BiRss, BiTrash } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 import { ContentContainer } from '../ContentContainer'
@@ -17,12 +17,17 @@ type ShowFeedProps = Record<string, unknown>
 
 const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { setAddFeed } = useContent()
+  const { setAddFeed, setEditFeed } = useContent()
   const dispatch = useAppDispatchRenderer()
+
   const onDeleteFeed = useCallback(() => {
     dispatch(deleteFeed(id as string))
     setAddFeed()
   }, [id, dispatch, setAddFeed])
+
+  const onEditFeed = () => {
+    setEditFeed({ id })
+  }
 
   const feed = useSelector(getFeedById(id as string))
 
@@ -54,6 +59,12 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
             {feed && feed.name}
           </Heading>
           <HStack>
+            <IconButton
+              variant='ghost'
+              aria-label='play'
+              icon={<BiEditAlt />}
+              onClick={onEditFeed}
+            />
             <IconButton
               variant='ghost'
               aria-label='Remove Feed'
