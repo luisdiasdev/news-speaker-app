@@ -1,11 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import ContentPanel from '@components/ContentPanel'
+import RSSFeedList from '@components/RSSFeedList'
+import ContentContextProvider from '@contexts/ContentContext'
 import { configureStoreRenderer } from '@shared/store/configureStore/renderer'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 import { AppTemplate } from './components/AppTemplate'
-import { Router } from './router'
 import { defaultTheme } from './theme'
 
 const store = configureStoreRenderer('news-speaker-app', [
@@ -27,7 +29,9 @@ const App: React.FC = () => {
       <ThemeProvider theme={defaultTheme}>
         <ChakraProvider resetCSS>
           <AppTemplate>
-            <Router />
+            <ContentContextProvider>
+              <ContentPanel leftPanel={<RSSFeedList />} />
+            </ContentContextProvider>
           </AppTemplate>
         </ChakraProvider>
       </ThemeProvider>
