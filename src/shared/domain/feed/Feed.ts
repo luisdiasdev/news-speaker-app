@@ -12,6 +12,8 @@ export interface FeedHeadline {
   author: string
   date: string
   contentSnippet: string
+  isRead: boolean
+  link?: string
 }
 
 export interface Feed {

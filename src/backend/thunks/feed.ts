@@ -4,6 +4,7 @@ import { AppState } from '@shared/store'
 import { getFeedList, updateFeed } from '@shared/store/reducer/feed'
 
 import {
+  deleteFeedByLastUpdatedTime,
   deleteFeedFolder,
   downloadFeedImage,
   fetchRSSFeedFromURL,
@@ -32,7 +33,12 @@ export const refreshFeed = createAsyncThunk<
           updating: true
         })
       )
-      const { url, latestHash: oldHash, name } = feed
+      const {
+        url,
+        latestHash: oldHash,
+        lastUpdatedTime: oldUpdatedTime,
+        name
+      } = feed
       const rssFeed = await fetchRSSFeedFromURL(url)
       const jsonContent = JSON.stringify(rssFeed)
       const latestHash = generateHashFromContent(jsonContent)
@@ -58,8 +64,8 @@ export const refreshFeed = createAsyncThunk<
         )
         metadata.internalImageUrl = internalImageURL
       }
+      await deleteFeedByLastUpdatedTime(feed.id, oldUpdatedTime)
       await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
-      // todo: remove older feeds
       console.log('updated feed...', name, latestHash, oldHash)
       await dispatch(
         updateFeed({

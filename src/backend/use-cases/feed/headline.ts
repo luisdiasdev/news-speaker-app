@@ -20,7 +20,9 @@ export const getHeadlines = (
       title: item.title,
       date: item.isoDate,
       author: item.creator,
-      contentSnippet: item.contentSnippet
+      contentSnippet: item.contentSnippet,
+      isRead: false,
+      link: item.link
     }))
     .filter(
       headline => differenceInDays(now, new Date(headline.date)) <= fetchPeriod
