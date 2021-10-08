@@ -57,7 +57,7 @@ const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
 
   return (
     <ContentContainer>
-      <Container>
+      <Container maxW='container.lg'>
         <HStack justify='space-between'>
           <Center>
             <BiRss fontSize='1.25rem' />

@@ -15,7 +15,7 @@ import { ContentContainer } from '../ContentContainer'
 const Home: React.FC = () => {
   return (
     <ContentContainer>
-      <Container>
+      <Container maxW='container.lg'>
         <Center>
           <Heading as='h2' size='md'>
             The News Speaker

@@ -8,7 +8,7 @@ import Form from './Form'
 const AddFeed: React.FC = () => {
   return (
     <ContentContainer>
-      <Container>
+      <Container maxW='container.lg'>
         <HStack>
           <Center>
             <BiEdit />

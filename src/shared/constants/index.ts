@@ -3,12 +3,12 @@ import { PATHS } from './paths'
 
 const constants = {
   WindowBounds: {
-    width: 800,
-    height: 600
+    width: 1280,
+    height: 800
   },
   WindowMinBounds: {
-    width: 400,
-    height: 300
+    width: 640,
+    height: 400
   },
   IPC,
   PATHS

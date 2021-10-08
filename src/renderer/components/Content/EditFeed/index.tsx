@@ -10,7 +10,7 @@ type EditFeedProps = Record<string, unknown>
 const EditFeed: React.FC<EditFeedProps> = ({ id }) => {
   return (
     <ContentContainer>
-      <Container>
+      <Container maxW='container.lg'>
         <HStack boxSize='10'>
           <Center>
             <BiEdit />

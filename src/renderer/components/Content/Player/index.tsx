@@ -10,7 +10,7 @@ type PlayerProps = Record<string, unknown>
 const Player: React.FC<PlayerProps> = ({ id }) => {
   return (
     <ContentContainer>
-      <Container>
+      <Container maxW='container.lg'>
         <Center>
           <HStack boxSize='10'>
             <Heading as='h2' size='md'>
