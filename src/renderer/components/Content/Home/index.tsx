@@ -1,23 +1,14 @@
-import {
-  Center,
-  Container,
-  Heading,
-  HStack,
-  Stack,
-  Text
-} from '@chakra-ui/layout'
+import { Center, Container, Heading, Text } from '@chakra-ui/layout'
 import React from 'react'
 
 import { ContentContainer } from '../ContentContainer'
-
-// import { Container } from './styles';
 
 const Home: React.FC = () => {
   return (
     <ContentContainer>
       <Container maxW='container.lg'>
-        <Center>
-          <Heading as='h2' size='md'>
+        <Center mt='8'>
+          <Heading as='h2' size='xl'>
             The News Speaker
           </Heading>
         </Center>

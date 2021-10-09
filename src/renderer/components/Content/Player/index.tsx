@@ -1,4 +1,5 @@
 import { Box, Center, Container, Heading, HStack } from '@chakra-ui/layout'
+import { PlayerContextProvider } from '@contexts/PlayerContext'
 import React from 'react'
 
 import { ContentContainer } from '../ContentContainer'
@@ -8,6 +9,7 @@ import Headlines from './Headlines'
 type PlayerProps = Record<string, unknown>
 
 const Player: React.FC<PlayerProps> = ({ id }) => {
+  const selecteId = id as string
   return (
     <ContentContainer>
       <Container maxW='container.lg'>
@@ -20,9 +22,11 @@ const Player: React.FC<PlayerProps> = ({ id }) => {
         </Center>
         <Box mt='4'>
           <Center>
-            <Controls />
+            <PlayerContextProvider id={selecteId}>
+              <Controls />
+            </PlayerContextProvider>
           </Center>
-          <Headlines id={id as string} />
+          <Headlines id={selecteId} />
         </Box>
       </Container>
     </ContentContainer>

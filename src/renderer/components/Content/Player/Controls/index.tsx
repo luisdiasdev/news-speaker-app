@@ -1,9 +1,11 @@
 import { IconButton } from '@chakra-ui/button'
 import { HStack } from '@chakra-ui/layout'
+import { usePlayer } from '@contexts/PlayerContext'
 import React from 'react'
 import { BiPlay, BiSkipNext, BiSkipPrevious, BiStop } from 'react-icons/bi'
 
 const Controls: React.FC = () => {
+  const { play } = usePlayer()
   return (
     <HStack>
       <IconButton
@@ -17,6 +19,7 @@ const Controls: React.FC = () => {
         aria-label='play'
         fontSize='24px'
         icon={<BiPlay />}
+        onClick={play}
       />
       <IconButton
         variant='ghost'

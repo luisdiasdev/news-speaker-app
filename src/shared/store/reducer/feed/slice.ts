@@ -10,11 +10,9 @@ const feedAdapter = createEntityAdapter<Feed>({
   selectId: feed => feed.id
 })
 
-const initialState = feedAdapter.getInitialState()
-
 const feedSlice = createSlice({
   name: 'feed',
-  initialState,
+  initialState: feedAdapter.getInitialState(),
   reducers: {
     addFeed: feedAdapter.addOne,
     updateFeed(state, action: PayloadAction<Feed>) {

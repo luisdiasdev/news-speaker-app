@@ -1,7 +1,7 @@
 import { Box, HStack, List, ListItem, Text } from '@chakra-ui/layout'
 import { getFeedById } from '@shared/store/reducer/feed'
 import { formatDistance } from 'date-fns'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 
 type HeadlinesProps = {
@@ -10,7 +10,7 @@ type HeadlinesProps = {
 
 const Headlines: React.FC<HeadlinesProps> = ({ id }) => {
   const feed = useSelector(getFeedById(id))
-  const headlines = useMemo(() => feed && feed.headlines, [feed])
+  const headlines = feed && feed.headlines
 
   return (
     <Box m='4'>

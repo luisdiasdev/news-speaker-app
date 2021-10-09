@@ -1,5 +1,9 @@
 import constants from '@shared/constants'
 import { BrowserWindow } from 'electron'
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} from 'electron-devtools-installer'
 import path from 'path'
 
 import { isDevelopment } from '../helpers/is-dev'
@@ -32,8 +36,15 @@ export function createWindow(): BrowserWindow {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
   if (isDevelopment()) {
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    mainWindow.webContents.once('dom-ready', async () => {
+      await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+        .then(name => console.log(`Added Extension: ${name}`))
+        .catch(err => console.log('An error occurred: ', err))
+        .finally(() => {
+          // Open the DevTools.
+          mainWindow.webContents.openDevTools()
+        })
+    })
   }
 
   configureSessionPermissions()
