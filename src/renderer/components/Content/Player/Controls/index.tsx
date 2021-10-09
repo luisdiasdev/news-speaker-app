@@ -5,7 +5,7 @@ import React from 'react'
 import { BiPlay, BiSkipNext, BiSkipPrevious, BiStop } from 'react-icons/bi'
 
 const Controls: React.FC = () => {
-  const { play } = usePlayer()
+  const { play, stop } = usePlayer()
   return (
     <HStack>
       <IconButton
@@ -26,6 +26,7 @@ const Controls: React.FC = () => {
         aria-label='stop'
         fontSize='24px'
         icon={<BiStop />}
+        onClick={stop}
       />
       <IconButton
         variant='ghost'

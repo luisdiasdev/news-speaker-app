@@ -1,4 +1,3 @@
-import { FeedHeadline } from '@shared/domain/feed'
 import { getFeedById } from '@shared/store/reducer/feed'
 import React, {
   createContext,
