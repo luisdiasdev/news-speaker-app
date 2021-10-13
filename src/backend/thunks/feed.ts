@@ -26,7 +26,7 @@ export const refreshFeed = createAsyncThunk<
 
   await Promise.all(
     Object.values(feedList).map(async feed => {
-      console.log('updating feed...')
+      console.log('\nupdating feed...', feed.id)
       await dispatch(
         updateFeed({
           ...feed,
@@ -37,6 +37,7 @@ export const refreshFeed = createAsyncThunk<
         url,
         latestHash: oldHash,
         lastUpdatedTime: oldUpdatedTime,
+        metadata: oldMetadata,
         name
       } = feed
       const rssFeed = await fetchRSSFeedFromURL(url)
@@ -45,7 +46,7 @@ export const refreshFeed = createAsyncThunk<
       const lastUpdatedTime = +new Date()
 
       if (latestHash === oldHash) {
-        console.log('nothing to do for feed...', name)
+        console.log('\nnothing to do for feed...', name)
         await dispatch(
           updateFeed({
             ...feed,
@@ -55,28 +56,37 @@ export const refreshFeed = createAsyncThunk<
         )
         return
       }
+      console.log('\ntrying to update feed...', feed.id)
 
       const metadata = getFeedMetadata(rssFeed)
-      if (metadata.imageUrl) {
-        const { internalImageURL } = await downloadFeedImage(
-          feed.id,
-          metadata.imageUrl
-        )
-        metadata.internalImageUrl = internalImageURL
+      if (metadata.imageUrl && oldMetadata.imageUrl !== metadata.imageUrl) {
+        try {
+          const { internalImageURL } = await downloadFeedImage(
+            feed.id,
+            metadata.imageUrl
+          )
+          metadata.internalImageUrl = internalImageURL
+        } catch (err) {
+          console.log('\nerror downloading feed image: ', feed.id, err)
+        }
       }
-      await deleteFeedByLastUpdatedTime(feed.id, oldUpdatedTime)
-      await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
-      console.log('updated feed...', name, latestHash, oldHash)
-      await dispatch(
-        updateFeed({
-          ...feed,
-          lastUpdatedTime,
-          latestHash,
-          headlines: getHeadlines(rssFeed),
-          metadata,
-          updating: false
-        })
-      )
+      try {
+        await deleteFeedByLastUpdatedTime(feed.id, oldUpdatedTime)
+        await saveParsedRSSFeedAsFile(feed, jsonContent, lastUpdatedTime)
+        console.log('\nupdated feed...', feed.id, name, latestHash, oldHash)
+        await dispatch(
+          updateFeed({
+            ...feed,
+            lastUpdatedTime,
+            latestHash,
+            headlines: getHeadlines(rssFeed),
+            metadata,
+            updating: false
+          })
+        )
+      } catch (err) {
+        console.log('\nunexpected err occurred: ', feed.id, err)
+      }
     })
   )
 })
