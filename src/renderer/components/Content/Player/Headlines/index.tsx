@@ -32,7 +32,10 @@ const Headlines: React.FC<HeadlinesProps> = ({ id }) => {
                       bgColor='green.500'
                       borderRadius='50%'
                     ></Box>
-                    <Text fontWeight='bold'>{h.title}</Text>
+                    <Box alignItems='flex-start'>
+                      <Text fontWeight='bold'>{h.title}</Text>
+                      <Text mt='0'>{h.author}</Text>
+                    </Box>
                   </HStack>
                 )}
                 <HStack>
