@@ -1,7 +1,11 @@
 import { Action, createAsyncThunk, ThunkDispatch } from '@reduxjs/toolkit'
 import { Feed } from '@shared/domain/feed'
 import { AppState } from '@shared/store'
-import { getFeedList, updateFeed } from '@shared/store/reducer/feed'
+import {
+  getFeedById,
+  getFeedList,
+  updateFeed
+} from '@shared/store/reducer/feed'
 import { differenceInDays } from 'date-fns'
 
 import {
@@ -141,3 +145,28 @@ export const deleteFeedFiles = createAsyncThunk(
     await deleteFeedFolder(id)
   }
 )
+
+export const nextHeadlinePage = createAsyncThunk<
+  unknown,
+  unknown,
+  {
+    state: AppState
+    dispatch: ThunkDispatch<unknown, unknown, Action<unknown>>
+  }
+>('feed/nextHeadlinePage', async (id: string, { dispatch, getState }) => {
+  console.log('next headline...', id)
+  const feed = getFeedById(id)(getState())
+  // Read parsed rss file from disk
+  // Parse JSON
+  // Fetch next page, if available
+  // Update feed
+  await dispatch(
+    updateFeed({
+      ...feed,
+      headlines: {
+        ...feed.headlines,
+        currentPage: feed.headlines.currentPage + 1
+      }
+    })
+  )
+})

@@ -84,7 +84,7 @@ export const PlayerContextProvider: React.FC<PlayerContextProviderType> = ({
       utterThis.addEventListener('error', err => console.log('error => ', err))
       speechSynthesis.speak(utterThis)
     }
-    const currentTrack = headlines.length && headlines[0]
+    const currentTrack = headlines.items && headlines.items[0]
     const lines = [currentTrack.title, currentTrack.contentSnippet]
     lines.forEach(speakMessage)
 

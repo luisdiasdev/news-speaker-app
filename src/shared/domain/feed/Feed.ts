@@ -16,6 +16,14 @@ export interface FeedHeadline {
   link?: string
 }
 
+export interface FeedHeadlinesPage {
+  items: FeedHeadline[]
+  totalPages: number
+  currentPage: number
+  totalItems: number
+  itemsPerPage: number
+}
+
 export interface Feed {
   id: string
   name: string
@@ -24,7 +32,7 @@ export interface Feed {
   downloadError?: boolean
   updating?: boolean
   updateError?: boolean
-  headlines?: FeedHeadline[]
+  headlines?: FeedHeadlinesPage
   lastUpdatedTime?: number
   latestHash?: string
   metadata?: FeedMetadata

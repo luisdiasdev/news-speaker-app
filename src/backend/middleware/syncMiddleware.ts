@@ -1,6 +1,10 @@
 import { Middleware } from '@reduxjs/toolkit'
 import { AppDispatchMain } from '@shared/store/configureStore/main'
-import { addFeed, deleteFeed } from '@shared/store/reducer/feed'
+import {
+  addFeed,
+  deleteFeed,
+  fetchNextHeadlinePage
+} from '@shared/store/reducer/feed'
 import {
   closeWindowAction,
   openExternalLinkAction
@@ -10,7 +14,12 @@ import { REHYDRATE } from 'redux-persist'
 
 import { closeWindow } from '../helpers/close-window'
 import { openInBrowser } from '../helpers/open'
-import { deleteFeedFiles, fetchFeed, refreshFeed } from '../thunks/feed'
+import {
+  deleteFeedFiles,
+  fetchFeed,
+  nextHeadlinePage,
+  refreshFeed
+} from '../thunks/feed'
 
 export function syncMiddleware(
   mainWindow: BrowserWindow
@@ -36,6 +45,11 @@ export function syncMiddleware(
 
         case deleteFeed.type: {
           dispatch(deleteFeedFiles(action.payload))
+          return next(action)
+        }
+
+        case fetchNextHeadlinePage.type: {
+          dispatch(nextHeadlinePage(action.payload))
           return next(action)
         }
 
