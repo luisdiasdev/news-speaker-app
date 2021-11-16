@@ -27,7 +27,7 @@ export function configureSessionCSP() {
       responseHeaders: {
         ...details.responseHeaders,
         'Content-Security-Policy':
-          "script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' appfiles:"
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' appfiles: data:"
       }
     })
   })

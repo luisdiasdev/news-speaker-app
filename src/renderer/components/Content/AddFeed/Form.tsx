@@ -1,9 +1,9 @@
 import { Stack } from '@chakra-ui/layout'
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
-  FormLabel,
   Input
 } from '@chakra-ui/react'
 import { Feed } from '@shared/domain/feed'
@@ -12,6 +12,9 @@ import { addFeed } from '@shared/store/reducer/feed'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
+
+import FileUpload from './FileUpload'
+import { Separator } from './Separator'
 
 const Form: React.FC = () => {
   const {
@@ -30,31 +33,12 @@ const Form: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack>
+      <Stack spacing='10'>
         <FormControl>
-          <FormLabel htmlFor='name'>Feed Name</FormLabel>
-          <Input
-            id='name'
-            type='text'
-            placeholder='My favorite news'
-            {...register('name', {
-              required: 'The name is required',
-              minLength: {
-                value: 4,
-                message: 'The minimum length should be 4 characters'
-              }
-            })}
-          />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor='url'>URL</FormLabel>
           <Input
             id='url'
             type='text'
-            placeholder='https://some.podcast.com/rss'
+            placeholder='Paste your feed URL here, something like: https://my.favoritenews.com/rss'
             {...register('url', {
               required: 'The URL is required'
               // TODO: Add validation to the URL
@@ -64,8 +48,16 @@ const Form: React.FC = () => {
             {errors.url && errors.url.message}
           </FormErrorMessage>
         </FormControl>
-        <Button colorScheme='blue' type='submit' isLoading={isSubmitting}>
-          Add
+        <Separator text='or' />
+        <FileUpload />
+        <Button
+          alignSelf='flex-end'
+          colorScheme='blue'
+          type='submit'
+          width='48'
+          isLoading={isSubmitting}
+        >
+          Import
         </Button>
       </Stack>
     </form>

@@ -37,7 +37,7 @@ const rendererRules = [
   },
   {
     test: /\.svg$/,
-    use: ['@svgr/webpack', 'url-loader']
+    use: ['@svgr/webpack', 'url-loader'],
   },
   {
     test: /\.(jpg|png|woff|woff2|eot|ttf)$/,
