@@ -16,7 +16,11 @@ import { v4 as uuidv4 } from 'uuid'
 import FileUpload from './FileUpload'
 import { Separator } from './Separator'
 
-const Form: React.FC = () => {
+type Props = {
+  isOPMLEnabled: boolean
+}
+
+const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
   const {
     register,
     formState: { errors, isSubmitting },
@@ -48,17 +52,21 @@ const Form: React.FC = () => {
             {errors.url && errors.url.message}
           </FormErrorMessage>
         </FormControl>
-        <Separator text='or' />
-        <FileUpload />
-        <Button
-          alignSelf='flex-end'
-          colorScheme='blue'
-          type='submit'
-          width='48'
-          isLoading={isSubmitting}
-        >
-          Import
-        </Button>
+        {isOPMLEnabled ? (
+          <>
+            <Separator text='or' />
+            <FileUpload />
+            <Button
+              alignSelf='flex-end'
+              colorScheme='blue'
+              type='submit'
+              width='48'
+              isLoading={isSubmitting}
+            >
+              Import
+            </Button>
+          </>
+        ) : null}
       </Stack>
     </form>
   )
