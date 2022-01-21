@@ -1,0 +1,9 @@
+export const AVAILABLE_FEATURE_FLAGS = {
+  OPML_ENABLED: 'OPML_ENABLED'
+}
+
+export const DEFAULT_FEATURE_FLAG_VALUES = {
+  [AVAILABLE_FEATURE_FLAGS.OPML_ENABLED]: false
+}
+
+export type FeatureFlagKeys = keyof typeof AVAILABLE_FEATURE_FLAGS
