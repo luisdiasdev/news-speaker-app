@@ -56,17 +56,17 @@ const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
           <>
             <Separator text='or' />
             <FileUpload />
-            <Button
-              alignSelf='flex-end'
-              colorScheme='blue'
-              type='submit'
-              width='48'
-              isLoading={isSubmitting}
-            >
-              Import
-            </Button>
           </>
         ) : null}
+        <Button
+          alignSelf='flex-end'
+          colorScheme='blue'
+          type='submit'
+          width='48'
+          isLoading={isSubmitting}
+        >
+          Import
+        </Button>
       </Stack>
     </form>
   )
