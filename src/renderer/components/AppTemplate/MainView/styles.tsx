@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 export const Container = styled.div``
 
-interface PanelProps {
+interface ViewProps {
   isOpen: boolean
   panelWidth: string
 }
 
-export const LeftPanel = styled.div<PanelProps>`
+export const LeftView = styled.div<ViewProps>`
   position: fixed;
   top: ${props => props.theme.titleBarHeight};
   left: ${props => (props.isOpen ? '0' : `-${props.panelWidth}`)};
@@ -17,7 +17,7 @@ export const LeftPanel = styled.div<PanelProps>`
   width: ${props => props.panelWidth};
 `
 
-export const RightPanel = styled.div<PanelProps>`
+export const RightView = styled.div<ViewProps>`
   position: fixed;
   top: ${props => props.theme.titleBarHeight};
   right: 0;

@@ -14,7 +14,7 @@
       "@assets/*": ["src/assets/*"],
       "@shared/*": ["src/shared/*"],
       "@components/*": ["src/renderer/components/*"],
-      "@contexts/*": ["src/renderer/contexts/*"],
+      "@context/*": ["src/renderer/context/*"],
       "*": ["node_modules/*"]
     },
     "jsx": "react"

@@ -4,7 +4,7 @@ import { Image } from '@chakra-ui/image'
 import { Center, Container, Heading, HStack, Text } from '@chakra-ui/layout'
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 import ExternalLinkConsentModal from '@components/ExternalLinkConsentModal'
-import { useContent } from '@contexts/ContentContext'
+import { useView } from '@context/ViewContext'
 import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { deleteFeed, getFeedById } from '@shared/store/reducer/feed'
 import { formatRelative } from 'date-fns'
@@ -24,7 +24,7 @@ type ShowFeedProps = Record<string, unknown>
 
 const ShowFeed: React.FC<ShowFeedProps> = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { setAddFeed, setEditFeed } = useContent()
+  const { setAddFeed, setEditFeed } = useView()
   const dispatch = useAppDispatchRenderer()
 
   const onDeleteFeed = useCallback(() => {

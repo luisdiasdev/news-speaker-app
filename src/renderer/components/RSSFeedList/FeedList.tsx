@@ -1,7 +1,7 @@
 import { IconButton } from '@chakra-ui/button'
 import Icon from '@chakra-ui/icon'
 import { Center, Flex, HStack, List, ListItem } from '@chakra-ui/layout'
-import { useContent } from '@contexts/ContentContext'
+import { useView } from '@context/ViewContext'
 import { getFeedList } from '@shared/store/reducer/feed/selectors'
 import React from 'react'
 import { BiCheck, BiPlay, BiRss } from 'react-icons/bi'
@@ -22,7 +22,7 @@ const FeedListItem: React.FC<FeedListItemProps> = ({
   updating,
   downloading
 }) => {
-  const { setPlayer, setShowFeed } = useContent()
+  const { setPlayer, setShowFeed } = useView()
 
   const handlePlayButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation()

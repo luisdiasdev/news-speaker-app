@@ -1,6 +1,6 @@
 import { IconButton } from '@chakra-ui/button'
 import { Flex, HStack } from '@chakra-ui/layout'
-import { useContent } from '@contexts/ContentContext'
+import { useView } from '@context/ViewContext'
 import React from 'react'
 import { BiHome, BiPlus } from 'react-icons/bi'
 
@@ -8,7 +8,7 @@ import { FeedList } from './FeedList'
 import { Container } from './styles'
 
 const RSSFeedList: React.FC = () => {
-  const { setAddFeed, home, isHome } = useContent()
+  const { setAddFeed, home, isHome } = useView()
   return (
     <Container>
       <Flex justifyContent='flex-end' alignItems='center'>

@@ -6,7 +6,7 @@ import { BiX } from 'react-icons/bi'
 
 import { Container, TitleContainer } from './styles'
 
-const TitleBar: React.FC = ({ children }) => {
+export const TitleBar: React.FC = ({ children }) => {
   const dispatch = useAppDispatchRenderer()
   const onClose = useCallback(() => dispatch(closeWindowAction()), [dispatch])
   return (
@@ -25,5 +25,3 @@ const TitleBar: React.FC = ({ children }) => {
     </Container>
   )
 }
-
-export default TitleBar
