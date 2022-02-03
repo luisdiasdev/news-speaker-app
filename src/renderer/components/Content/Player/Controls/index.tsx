@@ -1,6 +1,6 @@
 import { IconButton } from '@chakra-ui/button'
 import { HStack } from '@chakra-ui/layout'
-import { usePlayer } from '@contexts/PlayerContext'
+import { usePlayer } from '@context/PlayerContext'
 import React from 'react'
 import { BiPlay, BiSkipNext, BiSkipPrevious, BiStop } from 'react-icons/bi'
 

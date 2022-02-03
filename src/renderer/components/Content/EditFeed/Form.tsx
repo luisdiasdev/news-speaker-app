@@ -6,7 +6,7 @@ import {
   FormLabel,
   Input
 } from '@chakra-ui/react'
-import { useContent } from '@contexts/ContentContext'
+import { useView } from '@context/ViewContext'
 import { Feed } from '@shared/domain/feed'
 import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { getFeedById, updateFeed } from '@shared/store/reducer/feed'
@@ -19,7 +19,7 @@ type FormProps = {
 }
 
 const Form: React.FC<FormProps> = ({ id }) => {
-  const { setAddFeed } = useContent()
+  const { setAddFeed } = useView()
   const feed = useSelector(getFeedById(id))
   const {
     register,

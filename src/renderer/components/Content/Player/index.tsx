@@ -1,5 +1,5 @@
 import { Box, Center, Container, Heading, HStack } from '@chakra-ui/layout'
-import { PlayerContextProvider } from '@contexts/PlayerContext'
+import { PlayerContextProvider } from '@context/PlayerContext'
 import React from 'react'
 
 import { ContentContainer } from '../ContentContainer'
