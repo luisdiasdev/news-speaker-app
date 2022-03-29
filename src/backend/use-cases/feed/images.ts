@@ -2,8 +2,8 @@ import constants from '@shared/constants'
 import path from 'path'
 import { v4 as uuidv4 } from 'uuid'
 
-import { fileDownload } from '../../client'
 import { ensureDirectory } from '../../helpers/ensure-directory'
+import { fileDownload } from '../../http'
 import { getRSSFeedFolderName } from './folder'
 
 const getExtensionFromURL = (url: string) => {
