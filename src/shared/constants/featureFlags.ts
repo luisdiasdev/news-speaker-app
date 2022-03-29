@@ -1,4 +1,4 @@
-export const AVAILABLE_FEATURE_FLAGS = {
+export const AVAILABLE_FEATURE_FLAGS = <const>{
   OPML_ENABLED: 'OPML_ENABLED'
 }
 

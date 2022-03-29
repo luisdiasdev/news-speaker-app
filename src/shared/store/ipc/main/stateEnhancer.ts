@@ -17,7 +17,9 @@ const forwardActionsToRenderer = <S = any, A extends Action = AnyAction>(
         webContents
           .getAllWebContents()
           .filter(c => !c.getURL().startsWith('devtools://'))
-          .forEach(contents => contents.send(constants.IPC.ReduxAction, action))
+          .forEach(contents =>
+            contents.send(constants.IPC.REDUX_ACTION, action)
+          )
       }
       return value
     }
@@ -25,7 +27,7 @@ const forwardActionsToRenderer = <S = any, A extends Action = AnyAction>(
 }
 
 export const mainStateSyncMiddleware: Middleware = ({ dispatch }) => {
-  ipcMain.on(constants.IPC.ReduxAction, (event, action: Action) => {
+  ipcMain.on(constants.IPC.REDUX_ACTION, (event, action: Action) => {
     const localAction = stopActionForwarding(action)
 
     dispatch(localAction)
@@ -36,7 +38,7 @@ export const mainStateSyncMiddleware: Middleware = ({ dispatch }) => {
         c => c.id !== event.sender.id && !c.getURL().startsWith('devtools://')
       )
       .forEach(contents =>
-        contents.send(constants.IPC.ReduxAction, localAction)
+        contents.send(constants.IPC.REDUX_ACTION, localAction)
       )
   })
   return next => action => next(action)
@@ -46,7 +48,7 @@ export const mainStateEnhancer = (): StoreEnhancer => createStore => {
   return (reducer, preloadedState) => {
     const store = createStore(reducer, preloadedState)
 
-    ipcMain.handle(constants.IPC.InitReduxState, async () => {
+    ipcMain.handle(constants.IPC.INIT_REDUX_STATE, async () => {
       const state = store.getState()
       // Don't send redux-persist specific info to the renderer
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

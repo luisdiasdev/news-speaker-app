@@ -1,4 +1,4 @@
-export const IPC = {
-  InitReduxState: 'InitReduxState',
-  ReduxAction: 'ReduxAction'
+export const IPC = <const>{
+  INIT_REDUX_STATE: 'INIT_REDUX_STATE',
+  REDUX_ACTION: 'REDUX_ACTION'
 }

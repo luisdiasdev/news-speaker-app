@@ -14,10 +14,10 @@ let mainWindow: BrowserWindow
 export function createWindow(): BrowserWindow {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: constants.WindowBounds.height,
-    width: constants.WindowBounds.width,
-    minHeight: constants.WindowMinBounds.height,
-    minWidth: constants.WindowMinBounds.width,
+    height: constants.WINDOW_BOUNDS.HEIGHT,
+    width: constants.WINDOW_BOUNDS.WIDTH,
+    minHeight: constants.WINDOW_MIN_BOUNDS.HEIGHT,
+    minWidth: constants.WINDOW_MIN_BOUNDS.WIDTH,
     frame: false,
     titleBarStyle: 'hiddenInset',
     webPreferences: {

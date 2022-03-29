@@ -2,13 +2,13 @@ import { IPC } from './ipc'
 import { PATHS } from './paths'
 
 const constants = {
-  WindowBounds: {
-    width: 1280,
-    height: 800
+  WINDOW_BOUNDS: {
+    WIDTH: 1280,
+    HEIGHT: 800
   },
-  WindowMinBounds: {
-    width: 640,
-    height: 400
+  WINDOW_MIN_BOUNDS: {
+    WIDTH: 640,
+    HEIGHT: 400
   },
   IPC,
   PATHS
