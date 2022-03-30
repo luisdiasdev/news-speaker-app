@@ -1,4 +1,4 @@
-import { preloadContextBindings } from '@shared/store/ipc/renderer/preloadBindings'
+import { preloadContextBindings } from '@shared/ipc/renderer/preloadBindings'
 import { contextBridge } from 'electron'
 
 contextBridge.exposeInMainWorld('_api', {

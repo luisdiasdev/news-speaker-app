@@ -7,7 +7,7 @@ import {
   Spacer,
   Text
 } from '@chakra-ui/layout'
-import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
+import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { fetchNextHeadlinePage, getFeedById } from '@shared/store/reducer/feed'
 import { formatDistance } from 'date-fns'
 import React, { useCallback } from 'react'

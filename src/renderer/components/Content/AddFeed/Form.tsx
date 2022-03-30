@@ -1,7 +1,7 @@
 import { Stack } from '@chakra-ui/layout'
 import { Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
+import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { Feed } from '@shared/domain/feed'
-import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
 import { addFeed } from '@shared/store/reducer/feed'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'

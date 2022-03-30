@@ -1,13 +1,8 @@
-import { configureStoreMain } from '@shared/store/configureStore/main'
-import {
-  mainStateEnhancer,
-  mainStateSyncMiddleware
-} from '@shared/store/ipc/main/stateEnhancer'
 import { app, BrowserWindow, protocol } from 'electron'
 import { URL } from 'url'
 
 import FileProtocol from './fileProtocol'
-import { syncMiddleware } from './middleware/syncMiddleware'
+import { configureStore } from './store/configureStore'
 import { createWindow } from './window'
 
 // On Linux based OSes you need to have `speech-dispatcher` and `espeak` installed
@@ -35,11 +30,13 @@ async function onAppReady() {
   const mainWindow = createWindow()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const store = configureStoreMain(
-    'news-speaker-app',
-    [mainStateSyncMiddleware, syncMiddleware(mainWindow)],
-    [mainStateEnhancer()]
-  )
+  const { runSaga } = configureStore('news-speaker-app')
+  runSaga(mainWindow)
+  // const store = configureStoreMain(
+  //   'news-speaker-app',
+  //   [mainStateSyncMiddleware, syncMiddleware(mainWindow)],
+  //   [mainStateEnhancer()]
+  // )
 }
 
 // This method will be called when Electron has finished

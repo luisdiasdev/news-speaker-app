@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { Action, AnyAction, Reducer, Store, StoreEnhancer } from 'redux'
 
-import constants from '../../../constants'
+import constants from '../../constants'
 import { ActionMeta, FluxStandardAction, isValidAction } from '../fsa'
 import { stopActionForwarding } from '../stopForwarding'
 

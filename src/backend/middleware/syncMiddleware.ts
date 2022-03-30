@@ -1,5 +1,4 @@
 import { Middleware } from '@reduxjs/toolkit'
-import { AppDispatchMain } from '@shared/store/configureStore/main'
 import {
   addFeed,
   deleteFeed,
@@ -14,6 +13,7 @@ import { REHYDRATE } from 'redux-persist'
 
 import { closeWindow } from '../helpers/close-window'
 import { openInBrowser } from '../helpers/open'
+import { AppDispatchMain } from '../store/configureStore'
 import {
   deleteFeedFiles,
   fetchFeed,

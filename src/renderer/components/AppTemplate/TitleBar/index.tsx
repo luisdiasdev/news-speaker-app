@@ -1,5 +1,5 @@
 import { IconButton } from '@chakra-ui/button'
-import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
+import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { closeWindowAction } from '@shared/store/reducer/main'
 import React, { useCallback } from 'react'
 import { BiX } from 'react-icons/bi'

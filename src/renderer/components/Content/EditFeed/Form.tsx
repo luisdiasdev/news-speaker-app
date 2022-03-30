@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { useView } from '@context/ViewContext'
 import { Feed } from '@shared/domain/feed'
-import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
+import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { getFeedById, updateFeed } from '@shared/store/reducer/feed'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'

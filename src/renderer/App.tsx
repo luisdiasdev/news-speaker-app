@@ -1,19 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { configureStoreRenderer } from '@shared/store/configureStore/renderer'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 import { AppTemplate } from './components/AppTemplate'
+import { configureStore } from './store/configureStore'
 import { defaultTheme } from './theme'
 
-const store = configureStoreRenderer('news-speaker-app', [
-  __store
-    ? __store.rendererStoreEnhancer()
-    : window.__store
-    ? window.__store.rendererStoreEnhancer()
-    : null
-])
+const store = configureStore('news-speaker-app')
 
 store.subscribe(() => {
   const state = store.getState()

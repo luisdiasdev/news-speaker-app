@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalOverlay
 } from '@chakra-ui/modal'
-import { useAppDispatchRenderer } from '@shared/store/configureStore/renderer'
+import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { openExternalLinkAction } from '@shared/store/reducer/main'
 import React from 'react'
 
