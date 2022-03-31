@@ -1,8 +1,8 @@
 import { Stack } from '@chakra-ui/layout'
 import { Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
 import { useAppDispatchRenderer } from '@renderer/store/configureStore'
-import { Feed } from '@shared/domain/feed'
-import { addFeed } from '@shared/store/reducer/feed'
+import { FeedFile } from '@shared/domain/feedFile'
+import { addFeedFile } from '@shared/store/reducer/feedFile'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
@@ -24,8 +24,16 @@ const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
 
   const dispatch = useAppDispatchRenderer()
 
-  const onSubmit: SubmitHandler<Feed> = form => {
-    dispatch(addFeed({ id: uuidv4(), ...form }))
+  const onSubmit: SubmitHandler<FeedFile> = form => {
+    dispatch(
+      addFeedFile({
+        localId: uuidv4(),
+        type: 'RSS',
+        state: 'CREATED',
+        stateTimestamp: +new Date(),
+        ...form
+      })
+    )
     reset()
   }
 

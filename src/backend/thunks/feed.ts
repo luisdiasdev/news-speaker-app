@@ -13,11 +13,11 @@ import {
   deleteFeedFolder,
   downloadFeedImage,
   fetchRSSFeedFromURL,
-  generateHashFromContent,
   getFeedMetadata,
   getHeadlines,
   saveParsedRSSFeedAsFile
 } from '../use-cases/feed'
+import { generateHashFromContent } from '../utils/hash'
 
 export const refreshFeed = createAsyncThunk<
   unknown,
