@@ -1,4 +1,5 @@
 import AddFeed from '@components/Content/AddFeed'
+import CustomizeFeed from '@components/Content/CustomizeFeed'
 import EditFeed from '@components/Content/EditFeed'
 import Home from '@components/Content/Home'
 import Player from '@components/Content/Player'
@@ -16,6 +17,7 @@ export const CurrentView: React.FC = () => {
       {currentView === 'EditFeed' && <EditFeed {...args} />}
       {currentView === 'Player' && <Player {...args} />}
       {currentView === 'ShowFeed' && <ShowFeed {...args} />}
+      {currentView === 'CustomizeFeed' && <CustomizeFeed {...args} />}
     </>
   )
 }

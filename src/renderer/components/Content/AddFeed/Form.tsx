@@ -1,9 +1,10 @@
 import { Stack } from '@chakra-ui/layout'
 import { Button, FormControl, FormErrorMessage, Input } from '@chakra-ui/react'
+import { useView } from '@context/ViewContext'
 import { useAppDispatchRenderer } from '@renderer/store/configureStore'
 import { FeedFile } from '@shared/domain/feedFile'
 import { addFeedFile } from '@shared/store/reducer/feedFile'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -22,12 +23,26 @@ const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
     reset
   } = useForm()
 
+  const [loading, setLoading] = useState(false)
+  const [localId, setLocalId] = useState<string>()
+  const { setCustomizeFeed } = useView()
   const dispatch = useAppDispatchRenderer()
 
+  useEffect(() => {
+    if (loading && localId) {
+      const timeoutId = setTimeout(() => {
+        setCustomizeFeed({ localId })
+      }, 1000)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [loading, localId, setCustomizeFeed])
+
   const onSubmit: SubmitHandler<FeedFile> = form => {
+    const localId = uuidv4()
     dispatch(
       addFeedFile({
-        localId: uuidv4(),
+        localId,
         type: 'RSS',
         state: 'CREATED',
         stateTimestamp: +new Date(),
@@ -35,6 +50,8 @@ const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
       })
     )
     reset()
+    setLoading(true)
+    setLocalId(localId)
   }
 
   return (
@@ -65,7 +82,7 @@ const Form: React.FC<Props> = ({ isOPMLEnabled }: Props) => {
           colorScheme='blue'
           type='submit'
           width='48'
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || loading}
         >
           Import
         </Button>

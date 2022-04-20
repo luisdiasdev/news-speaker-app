@@ -6,7 +6,13 @@ import React, {
   useState
 } from 'react'
 
-export type ViewTypes = 'Home' | 'AddFeed' | 'EditFeed' | 'Player' | 'ShowFeed'
+export type ViewTypes =
+  | 'Home'
+  | 'AddFeed'
+  | 'EditFeed'
+  | 'Player'
+  | 'ShowFeed'
+  | 'CustomizeFeed'
 
 export type ViewContextType = {
   currentView: ViewTypes
@@ -18,6 +24,7 @@ export type ViewContextType = {
   setEditFeed: (args: Record<string, unknown>) => void
   setShowFeed: (args: Record<string, unknown>) => void
   setPlayer: (args: Record<string, unknown>) => void
+  setCustomizeFeed: (args: Record<string, unknown>) => void
 }
 
 const defaultFallbackFn = () => console.warn('no content provider')
@@ -31,7 +38,8 @@ export const ViewContext = createContext<ViewContextType>({
   setAddFeed: () => defaultFallbackFn,
   setEditFeed: () => defaultFallbackFn,
   setShowFeed: () => defaultFallbackFn,
-  setPlayer: () => defaultFallbackFn
+  setPlayer: () => defaultFallbackFn,
+  setCustomizeFeed: () => defaultFallbackFn
 })
 
 export const useView = () => {
@@ -62,7 +70,8 @@ export const ViewContextProvider: React.FC = ({ children }) => {
       setAddFeed: () => setCurrentView('AddFeed'),
       setEditFeed: args => goTo('EditFeed', args),
       setShowFeed: args => goTo('ShowFeed', args),
-      setPlayer: args => goTo('Player', args)
+      setPlayer: args => goTo('Player', args),
+      setCustomizeFeed: args => goTo('CustomizeFeed', args)
     }),
     [currentView, setCurrentView, args, goTo]
   )
